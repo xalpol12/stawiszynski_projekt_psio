@@ -1,0 +1,11 @@
+﻿  Game.cpp
+C:\Users\dawidexpompa2000\Desktop\programow\sfml programowanie\platformer\platformer\Game.cpp(152,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\dawidexpompa2000\Desktop\programow\sfml programowanie\platformer\platformer\Game.cpp(169,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\dawidexpompa2000\Desktop\programow\sfml programowanie\platformer\platformer\Game.cpp(182,22): warning C4018: '<': signed/unsigned mismatch
+C:\Users\dawidexpompa2000\Desktop\programow\sfml programowanie\platformer\platformer\Game.cpp(223,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\dawidexpompa2000\Desktop\programow\sfml programowanie\platformer\platformer\Game.cpp(229,20): warning C4018: '<': signed/unsigned mismatch
+  TileMap.cpp
+C:\Users\dawidexpompa2000\Desktop\programow\sfml programowanie\platformer\platformer\TileMap.cpp(36,23): warning C4018: '<': signed/unsigned mismatch
+C:\Users\dawidexpompa2000\Desktop\programow\sfml programowanie\platformer\platformer\TileMap.cpp(38,24): warning C4018: '<': signed/unsigned mismatch
+  Generating Code...
+  platformer.vcxproj -> C:\Users\dawidexpompa2000\Desktop\programow\sfml programowanie\platformer\Debug\platformer.exe
