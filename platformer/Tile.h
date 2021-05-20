@@ -15,6 +15,7 @@ public:
 
 	//Functions
 	sf::FloatRect getGlobalBounds();
+	bool getPhysical();
 
 	void update();
 	void render(sf::RenderTarget& target);

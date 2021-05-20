@@ -45,6 +45,12 @@ const sf::Vector2f Bullet::getPosition() const
 	return this->shape.getPosition();
 }
 
+const sf::Vector2i Bullet::getGridPosition(int gridSizeI_) const
+{
+	return sf::Vector2i(static_cast<int>(this->shape.getPosition().x) / gridSizeI_,
+		static_cast<int>(this->shape.getPosition().y) / gridSizeI_);
+}
+
 void Bullet::update()
 {
 	this->shape.move(this->direction * this->initialSpeed);

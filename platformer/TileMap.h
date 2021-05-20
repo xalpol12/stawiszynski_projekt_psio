@@ -26,7 +26,8 @@ public:
 	void addTile(const float x, const float y); 
 
 	void loadFromFile(const std::string file_name);
-	void updateCollision(Player* player);
+	void updatePlayerCollision(Player* player);
+	bool updateBulletCollision(Bullet* bullet);
 	void update();
 	void render(sf::RenderTarget& target);
 };

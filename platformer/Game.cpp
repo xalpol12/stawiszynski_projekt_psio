@@ -143,7 +143,7 @@ void Game::updateCollision()
 		this->player->setPosition(0.f, this->player->getPosition().y);
 	}
 
-	this->map->updateCollision(this->player);
+	this->map->updatePlayerCollision(this->player);
 }
 
 void Game::updateEnemies()
@@ -170,6 +170,7 @@ void Game::updateBullets()
 	{
 		bullets[i]->update();
 		//std::cout << i << std::endl;
+
 		//Out of bounds bullets
 		if (bullets[i]->getPosition().x <0 || bullets[i]->getPosition().x > window.getSize().x
 		|| bullets[i]->getPosition().y < 0 || bullets[i]->getPosition().y > window.getSize().y)
@@ -178,6 +179,12 @@ void Game::updateBullets()
 		}
 		else
 		{
+			//Bullets colliding with tiles
+			if (this->map->updateBulletCollision(this->bullets[i]))
+			{
+				bullets.erase(bullets.begin() + i);
+			}
+
 			//Enemy collision
 			for (int k = 0; k < enemies.size(); k++)
 			{

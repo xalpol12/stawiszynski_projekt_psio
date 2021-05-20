@@ -45,6 +45,9 @@
     <ClCompile Include="Enemy_Fire.cpp">
       <Filter>Enemies</Filter>
     </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Enemies</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -66,6 +69,9 @@
       <Filter>Map</Filter>
     </ClInclude>
     <ClInclude Include="Enemy_Fire.h">
+      <Filter>Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
       <Filter>Enemies</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Player.h"
+#include "Bullet.h"
 #include "TileMap.h"
 
 void TileMap::setDimensions(sf::Vector2u windowSize_)
@@ -68,7 +69,7 @@ void TileMap::loadFromFile(const std::string file_name)
 				std::stringstream str(line);
 				for (int x = 0; x < dimension.x; x++)
 				{
-					std::getline(str, loadedCell, ' ');			//WATCH FOR SPACES AT THE END OF LINE!!!
+					std::getline(str, loadedCell, ' ');			//WATCH FOR SPACES AT THE END OF LINE IN THE MAP FILE!!!
 					if (std::stoi(loadedCell) == 0)
 					{
 						this->map[x][y] = NULL;
@@ -94,7 +95,7 @@ void TileMap::loadFromFile(const std::string file_name)
 	}
 }
 
-void TileMap::updateCollision(Player* player)
+void TileMap::updatePlayerCollision(Player* player)
 {
 	//Initializing collision area
 	this->fromX = player->getGridPosition(gridSizeI).x -2;
@@ -128,7 +129,8 @@ void TileMap::updateCollision(Player* player)
 		{
 			if (map[x][y] != NULL)
 			{
-				enum borderLocation { None = 0, Left = 1, Right = 2 }; //Indicates if current tile borders on the left edge or right edge
+				enum borderLocation {None = 0, Left = 1, Right = 2, Both = 3 }; //Indicates if current tile borders on the left edge or right edge
+				int tileLocation = 0;
 				sf::FloatRect nextPos;
 				sf::FloatRect playerBounds = player->getGlobalBounds();
 				sf::FloatRect tileBounds = map[x][y]->getGlobalBounds();
@@ -138,11 +140,38 @@ void TileMap::updateCollision(Player* player)
 				nextPos.left += velocity.x;
 				nextPos.top += velocity.y;
 
-				//Bordering
+				//Check tile position in relation to other tiles
+				if (x > 0 && x < this->dimension.x - 1)
+				{
+					if ((map[x - 1][y] != NULL) && (map[x + 1][y] != NULL))
+						tileLocation = borderLocation::None;
+					else if ((map[x - 1][y] == NULL) && (map[x + 1][y] != NULL))
+						tileLocation = borderLocation::Left;
+					else if ((map[x - 1][y] == NULL) && (map[x + 1][y] != NULL))
+						tileLocation = borderLocation::Right;
+					else
+						tileLocation = borderLocation::Both;
+				}
+				else if (x == 0)
+				{
+					if (map[x + 1][y] != NULL)
+						tileLocation = borderLocation::None;
+					else
+						tileLocation = borderLocation::Right;
+				}
+				else if (x == this->dimension.x)
+				{
+					if (map[x - 1][y] != NULL)
+						tileLocation = borderLocation::None;
+					else
+						tileLocation = borderLocation::Left;
+				}
+
+					
 
 				if (tileBounds.intersects(nextPos))
 				{
-					//Bottom collision
+					//Bottom player collision
 					if (playerBounds.top < tileBounds.top
 						&& playerBounds.top + playerBounds.height < tileBounds.top + tileBounds.height
 						&& playerBounds.left < tileBounds.left + tileBounds.width
@@ -153,7 +182,7 @@ void TileMap::updateCollision(Player* player)
 						player->resetJumping();
 					}
 
-					//Top collision
+					//Top player collision
 					else if (playerBounds.top > tileBounds.top
 						&& playerBounds.top + playerBounds.height > tileBounds.top + tileBounds.height
 						&& playerBounds.left < tileBounds.left + tileBounds.width
@@ -164,29 +193,43 @@ void TileMap::updateCollision(Player* player)
 					}
 
 
-					////Right collision
-					//if (playerBounds.left < tileBounds.left
-					//	&& playerBounds.left + playerBounds.width < tileBounds.left + tileBounds.width
-					//	&& playerBounds.top < tileBounds.top + tileBounds.height
-					//	&& playerBounds.top + playerBounds.height > tileBounds.top)
-					//{
-					//	player->resetVelocityX();
-					//	player->setPosition(tileBounds.left - playerBounds.width, playerBounds.top);
-					//}
+					//Right player collision 
+					if ((playerBounds.left < tileBounds.left
+						&& playerBounds.left + playerBounds.width < tileBounds.left + tileBounds.width
+						&& playerBounds.top < tileBounds.top + tileBounds.height
+						&& playerBounds.top + playerBounds.height > tileBounds.top)&&((tileLocation ==borderLocation::Left)||(tileLocation == borderLocation::Both)))
+					{
+						player->resetVelocityX();
+						player->setPosition(tileBounds.left - playerBounds.width, playerBounds.top);
+					}
 
-					////Left collision
-					//else if (playerBounds.left > tileBounds.left
-					//	&& playerBounds.left + playerBounds.width > tileBounds.left + tileBounds.width
-					//	&& playerBounds.top < tileBounds.top + tileBounds.height
-					//	&& playerBounds.top + playerBounds.height > tileBounds.top)
-					//{
-					//	player->resetVelocityX();
-					//	player->setPosition(tileBounds.left + tileBounds.width, playerBounds.top);
-					//}
+					//Left player collision
+					else if ((playerBounds.left > tileBounds.left
+						&& playerBounds.left + playerBounds.width > tileBounds.left + tileBounds.width
+						&& playerBounds.top < tileBounds.top + tileBounds.height
+						&& playerBounds.top + playerBounds.height > tileBounds.top)
+						&&((tileLocation == borderLocation::Right)|| (tileLocation == borderLocation::Both)))
+					{
+						player->resetVelocityX();
+						player->setPosition(tileBounds.left + tileBounds.width, playerBounds.top);
+					}
 				}
 			}
 		}
 	}
+}
+
+bool TileMap::updateBulletCollision(Bullet* bullet)
+{
+	sf::Vector2i currentGrid = bullet->getGridPosition(gridSizeI);
+	sf::Vector2f bulletPos = bullet->getPosition();
+
+	if (map[currentGrid.x][currentGrid.y] != NULL)
+	{
+		return true;
+	}
+	else
+		return false;
 }
 
 void TileMap::update()

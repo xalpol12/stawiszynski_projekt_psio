@@ -21,6 +21,7 @@ public:
 	//Accessor
 	const sf::FloatRect getBounds() const;
 	const sf::Vector2f getPosition() const;
+	const sf::Vector2i getGridPosition(int gridSizeI_) const;
 
 	void update();
 	void render(sf::RenderTarget& target);

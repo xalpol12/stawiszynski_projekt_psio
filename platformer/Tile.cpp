@@ -25,6 +25,14 @@ sf::FloatRect Tile::getGlobalBounds()
 	return this->shape.getGlobalBounds();
 }
 
+bool Tile::getPhysical()
+{
+	if (this->isPhysical)
+		return true;
+	else
+		return false;
+}
+
 void Tile::update()
 {
 }
