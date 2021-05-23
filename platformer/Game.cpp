@@ -149,7 +149,7 @@ void Game::updateCollision()
 void Game::updateEnemies()
 {
 	unsigned counter = 0;
-	for (int i = 0; i < enemies.size(); i++)
+	for (unsigned i = 0; i < enemies.size(); i++)
 	{
 		enemies[i]->update(this->player->getPosition());
 		std::cout << i << std::endl;
@@ -171,6 +171,7 @@ void Game::updateBullets()
 		bullets[i]->update();
 		//std::cout << i << std::endl;
 
+
 		//Out of bounds bullets
 		if (bullets[i]->getPosition().x <0 || bullets[i]->getPosition().x > window.getSize().x
 		|| bullets[i]->getPosition().y < 0 || bullets[i]->getPosition().y > window.getSize().y)
@@ -182,11 +183,10 @@ void Game::updateBullets()
 			//Bullets colliding with tiles
 			if (this->map->updateBulletCollision(this->bullets[i]))
 			{
-				bullets.erase(bullets.begin() + i);
+				bullets.erase(bullets.begin() + i); //TODO fix crashing ghost bullets -> vector out of range problem
 			}
-
-			//Enemy collision
-			for (int k = 0; k < enemies.size(); k++)
+				//Enemy collision
+			for (size_t k = 0; k < enemies.size(); k++)
 			{
 				if (bullets[i]->getBounds().intersects(enemies[k]->getBounds()))
 				{
@@ -227,13 +227,13 @@ void Game::render()
 
 
 	//Rendering bullets
-	for (int i = 0; i < bullets.size(); i++)
+	for (size_t i = 0; i < bullets.size(); i++)
 	{
 		bullets[i]->render(this->window);
 	}
 
 	//Rendering enemies
-	for (int i = 0; i < enemies.size(); i++)
+	for (size_t i = 0; i < enemies.size(); i++)
 	{
 		enemies[i]->render(this->window);
 	}

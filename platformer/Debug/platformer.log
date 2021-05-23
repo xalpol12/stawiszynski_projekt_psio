@@ -1,4 +1,2 @@
-﻿  TileMap.cpp
-C:\Users\dawidexpompa2000\Desktop\programow\sfml programowanie\platformer\platformer\TileMap.cpp(37,23): warning C4018: '<': signed/unsigned mismatch
-C:\Users\dawidexpompa2000\Desktop\programow\sfml programowanie\platformer\platformer\TileMap.cpp(39,24): warning C4018: '<': signed/unsigned mismatch
+﻿  Enemy_Fire.cpp
   platformer.vcxproj -> C:\Users\dawidexpompa2000\Desktop\programow\sfml programowanie\platformer\Debug\platformer.exe
