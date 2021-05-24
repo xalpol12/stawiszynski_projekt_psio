@@ -61,6 +61,7 @@ public:
 	void resetJumping();
 	void resetShooting();
 	void resetAnimationTimer();
+	void loseHp(int damage_);
 
 	//Functions
 	void move(const float dir_x, const float dir_y);

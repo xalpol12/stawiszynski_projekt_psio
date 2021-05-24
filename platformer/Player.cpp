@@ -198,6 +198,12 @@ bool Player::isOpposite()
 	return false;
 }
 
+void Player::loseHp(int damage_)
+{
+	if (this->hp > 0)
+		this->hp -= damage_;
+}
+
 void Player::resetVelocityX()
 {
 	this->velocity.x = 0.f;
