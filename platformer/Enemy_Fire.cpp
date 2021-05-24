@@ -9,7 +9,7 @@ void Enemy_Fire::initVariables()
 	this->animState = ENEMY_STATE::ENEMY_ANIMATION_STATE::IDLE;
 	this->points = 10;
 	this->speed = 7.f;
-	this->damage = 0;
+	this->damage = 10;
 }
 
 void Enemy_Fire::initTexture(sf::Texture* texture_)
