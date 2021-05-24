@@ -4,6 +4,7 @@
 #include "Enemy_Fire.h"
 #include "Tile.h"
 #include "TileMap.h"
+#include "Gui.h"
 
 class Game
 {
@@ -11,7 +12,9 @@ private:
 	sf::RenderWindow window;
 	sf::Event event;
 
+	Gui* gui;
 	Player* player;
+
 
 	//Variables
 	sf::Clock clock;
@@ -28,10 +31,12 @@ private:
 	TileMap* map;
 
 	//Gui/gameplay elements
-	int points = 0;
+	int points;
 
+	void initVariables();
 	void initWindow();
 	void initBackground();
+	void initGui();
 	void initTextures();
 	void initPlayer();
 	void initTileMap();
@@ -50,6 +55,7 @@ public:
 	void updateDeltaTime();
 	void updatePollEvents();
 	void updatePlayer();
+	void updateGui();
 	void updateCollision();
 	void updateCombat();
 	void updateEnemies();

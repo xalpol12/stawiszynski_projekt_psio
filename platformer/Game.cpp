@@ -7,11 +7,21 @@ void Game::initWindow()
 	this->window.setFramerateLimit(30);
 }
 
+void Game::initVariables()
+{
+	this->points = 0;
+}
+
 void Game::initBackground()
 {
 	this->textures["BACKGROUND"] = new sf::Texture();
 	this->textures["BACKGROUND"]->loadFromFile("Textures/Background.png");
 	this->backgroundTexture.setTexture(*this->textures["BACKGROUND"]);
+}
+
+void Game::initGui()
+{
+	this->gui = new Gui();
 }
 
 void Game::initPlayer()
@@ -38,9 +48,11 @@ void Game::initTextures()
 
 Game::Game()
 {
+	this->initVariables();
 	this->initWindow();
 	this->initBackground();
 	this->initTextures();
+	this->initGui();
 	this->initPlayer();
 	this->initTileMap();
 }
@@ -124,7 +136,7 @@ void Game::updatePollEvents()
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
 		{
 			this->enemies.push_back(new Enemy_Fire(this->textures["ENEMY1"], sf::Vector2f(sf::Mouse::getPosition(window))));
-			std::cout << enemies.size() << std::endl;
+			/*std::cout << enemies.size() << std::endl;*/
 		}
 	}
 }
@@ -132,6 +144,11 @@ void Game::updatePollEvents()
 void Game::updatePlayer()
 {
 	this->player->update();
+}
+
+void Game::updateGui()
+{
+	this->gui->update(points, this->player->getHp(), this->player->getHpMax());
 }
 
 void Game::updateCollision()
@@ -194,6 +211,14 @@ void Game::updateEnemies()
 		{
 			enemies.erase(enemies.begin() + i);
 		}
+		//Enemy - player collision
+		else if (enemies[i]->getBounds().intersects(this->player->getGlobalBounds()))
+		{
+			this->player->loseHp(this->enemies[i]->getDamage());
+			this->enemies.erase(enemies.begin() + i);
+			std::cout << this->player->getHp();
+		}
+
 	}
 	
 }
@@ -225,6 +250,7 @@ void Game::update()
 {
 	this->updateDeltaTime();
 	this->updatePollEvents();
+	this->updateGui();
 	this->updatePlayer();
 	this->updateCollision();
 	this->updateCombat();
@@ -243,22 +269,16 @@ void Game::renderWorld()
 }
 
 
-
 void Game::render()
 {
 	this->window.clear();
 
-	//Rendering background
 	this->renderWorld();
 
-	//Rendering Tile Map
 	this->map->render(this->window);
 
-	//Rendering player
 	this->renderPlayer();
 
-
-	//Rendering bullets
 	for (size_t i = 0; i<bullets.size(); i++)
 	{
 		bullets[i]->render(this->window);
@@ -270,7 +290,7 @@ void Game::render()
 		enemies[i]->render(this->window);
 	}
 
-
+	this->gui->render(this->window);
 
 	this->window.display();
 }
@@ -279,6 +299,8 @@ const sf::RenderWindow& Game::getWindow() const
 {
 	return this->window;
 }
+
+
 
 
 
