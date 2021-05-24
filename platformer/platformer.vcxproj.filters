@@ -9,15 +9,14 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
     <Filter Include="Map">
       <UniqueIdentifier>{c3a85323-7ad4-472e-ad2f-247b21ce8694}</UniqueIdentifier>
     </Filter>
     <Filter Include="Enemies">
       <UniqueIdentifier>{7c7b57d0-229e-4076-971c-f2a4bb99ca2c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game elements">
+      <UniqueIdentifier>{e72252b3-673c-409d-b086-fce443004a70}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -25,9 +24,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
@@ -48,12 +44,15 @@
     <ClCompile Include="Enemy.cpp">
       <Filter>Enemies</Filter>
     </ClCompile>
+    <ClCompile Include="Gui.cpp">
+      <Filter>Game elements</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Game elements</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
@@ -73,6 +72,12 @@
     </ClInclude>
     <ClInclude Include="Enemy.h">
       <Filter>Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Gui.h">
+      <Filter>Game elements</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Game elements</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

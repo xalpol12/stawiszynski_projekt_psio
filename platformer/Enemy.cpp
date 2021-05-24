@@ -23,6 +23,11 @@ const sf::Vector2f Enemy::getPosition() const
 	return this->shape.getPosition();
 }
 
+const int Enemy::getPoints()
+{
+	return this->points;
+}
+
 void Enemy::restartClock()
 { 
 	this->animationClock.restart();
@@ -34,6 +39,11 @@ void Enemy::normalizeVector()
 	this->direction = this->playerPos - this->position;
 	float hyp = sqrt(pow(this->direction.x, 2.f) + pow(this->direction.y, 2.f));
 	this->direction = direction / hyp;
+}
+
+void Enemy::resetVelocity()
+{
+	this->speed = 0.f;
 }
 
 void Enemy::updateMovement()

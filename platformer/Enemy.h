@@ -34,10 +34,12 @@ public:
 	//Accessors
 	virtual const sf::FloatRect getBounds() const;
 	virtual const sf::Vector2f getPosition() const;
+	const int getPoints();
 
 	//Functions
 	void restartClock();
 	void normalizeVector();
+	void resetVelocity();
 
 	//Update
 	virtual void updateMovement();

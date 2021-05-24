@@ -12,7 +12,7 @@ sf::Vector2f Bullet::calcArmPosition()
 
 void Bullet::initVariables()
 {
-	this->initialSpeed = 60.f;
+	this->initialSpeed = 1.5f;
 }
 
 
@@ -28,7 +28,7 @@ Bullet::Bullet(sf::Texture* texture, sf::Vector2f direction_, sf::FloatRect cent
 	this->direction = direction_;
 	this->center = center_;
 	this->shape.setPosition(this->calcArmPosition());
-	this->shape.scale(2.f, 2.f);
+	this->shape.scale(2.5f, 2.5f);
 }
 
 Bullet::~Bullet()
@@ -51,9 +51,14 @@ const sf::Vector2i Bullet::getGridPosition(int gridSizeI_) const
 		static_cast<int>(this->shape.getPosition().y) / gridSizeI_);
 }
 
-void Bullet::update()
+void Bullet::resetVelocity()
 {
-	this->shape.move(this->direction * this->initialSpeed);
+	this->initialSpeed = 0.f;
+}
+
+void Bullet::update(float deltaTime_)
+{
+	this->shape.move(this->direction * this->initialSpeed * deltaTime_);
 }
 
 void Bullet::render(sf::RenderTarget& target)

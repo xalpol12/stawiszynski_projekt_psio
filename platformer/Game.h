@@ -13,14 +13,25 @@ private:
 
 	Player* player;
 
+	//Variables
+	sf::Clock clock;
+	float deltaTime;
+	float accTimer;
+	sf::Clock shootingTimer;
+
 	//Resources
 	std::string mapFilePath;
+	sf::Sprite backgroundTexture;
 	std::map<std::string, sf::Texture*> textures;
 	std::vector<Bullet*> bullets;
 	std::vector<Enemy_Fire*> enemies; //TODO Generalize vector to all types of enemies
 	TileMap* map;
 
+	//Gui/gameplay elements
+	int points = 0;
+
 	void initWindow();
+	void initBackground();
 	void initTextures();
 	void initPlayer();
 	void initTileMap();
@@ -36,15 +47,18 @@ public:
 	void spawnEnemies();
 
 	//Updates
+	void updateDeltaTime();
 	void updatePollEvents();
 	void updatePlayer();
 	void updateCollision();
+	void updateCombat();
 	void updateEnemies();
 	void updateBullets();
 	void update();
 
 	//Render
 	void renderPlayer();
+	void renderWorld();
 	void render();
 	const sf::RenderWindow& getWindow() const;
 };

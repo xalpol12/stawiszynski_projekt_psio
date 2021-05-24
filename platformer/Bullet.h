@@ -10,9 +10,11 @@ private:
 	//Calculations
 	sf::Vector2f calcArmPosition();
 
-public:
 	//Init
 	void initVariables();
+
+public:
+
 
 	Bullet();
 	Bullet(sf::Texture* texture, sf::Vector2f direction_, sf::FloatRect center_);
@@ -23,7 +25,10 @@ public:
 	const sf::Vector2f getPosition() const;
 	const sf::Vector2i getGridPosition(int gridSizeI_) const;
 
-	void update();
+	//Functions
+	void resetVelocity();
+
+	void update(float deltaTime_);
 	void render(sf::RenderTarget& target);
 };
 

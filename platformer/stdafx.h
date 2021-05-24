@@ -8,6 +8,7 @@
 #include<ctime>
 #include<time.h>
 #include<vector>
+#include<list>
 #include<cmath>
 
 //SFML

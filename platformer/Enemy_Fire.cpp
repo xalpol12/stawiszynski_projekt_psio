@@ -7,7 +7,7 @@ void Enemy_Fire::initVariables()
 	this->playerPos.y = 10.f;		// with shape.move() function taking nonzero value
 	this->scalingFactor = 3;
 	this->animState = ENEMY_STATE::ENEMY_ANIMATION_STATE::IDLE;
-	this->points = 0;
+	this->points = 10;
 	this->speed = 7.f;
 	this->damage = 0;
 }
