@@ -28,6 +28,11 @@ const int Enemy::getPoints()
 	return this->points;
 }
 
+const int Enemy::getDamage()
+{
+	return this->damage;
+}
+
 void Enemy::restartClock()
 { 
 	this->animationClock.restart();

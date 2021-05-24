@@ -35,6 +35,7 @@ public:
 	virtual const sf::FloatRect getBounds() const;
 	virtual const sf::Vector2f getPosition() const;
 	const int getPoints();
+	const int getDamage();
 
 	//Functions
 	void restartClock();
