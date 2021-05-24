@@ -3,6 +3,8 @@
 
 void Player::initVariables()
 { 
+	this->hpMax = 100;
+	this->hp = this->hpMax;
 	this->animState = PLAYER_ANIMATION_STATE::IDLE;
 	this->scalingFactor = 3;
 	this->isShooting = false;
@@ -174,6 +176,17 @@ void Player::resetShooting()
 {
 	this->isShooting = false;
 }
+
+const int Player::getHp()
+{
+	return this->hp;
+}
+
+const int Player::getHpMax()
+{
+	return this->hpMax;
+}
+
 
 void Player::resetJumping()
 {

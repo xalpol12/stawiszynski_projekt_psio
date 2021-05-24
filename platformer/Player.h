@@ -25,6 +25,10 @@ private:
 	float gravity;
 	float velocityMaxY;
 
+	//Gameplay variables
+	int hp;
+	int hpMax;
+
 	//Bools
 	bool isJumping;
 	bool isShooting;
@@ -47,6 +51,8 @@ public:
 	const sf::FloatRect getGlobalBounds() const;
 	const sf::Vector2f getVelocity() const;
 	const sf::Vector2i getGridPosition(int gridSizeI_) const;
+	const int getHp();
+	const int getHpMax();
 
 	//Modifiers
 	void setPosition(const float x, const float y);
