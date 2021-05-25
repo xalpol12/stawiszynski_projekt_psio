@@ -10,6 +10,8 @@ void Game::initWindow()
 void Game::initVariables()
 {
 	this->points = 0;
+	this->spawnTimer = 0.f;
+	this->spawnTimerMax = 1000.f;
 }
 
 void Game::initBackground()
@@ -93,7 +95,23 @@ sf::Texture* Game::getTexture(std::string texture_)
 
 void Game::spawnEnemies()
 {
-	//TODO ADD SPAWN TIMER AND SPAWN POINTS
+	int random = 0;
+	this->spawnTimer += this->deltaTime;
+
+	if (this->spawnTimer > this->spawnTimerMax)
+	{
+		this->spawnTimer = 0;
+		random = rand() % 4;
+		switch (random)		//random corner of the map
+		{
+			case 0: this->randomCorner = sf::Vector2f(10.f, 10.f); break;
+			case 1: this->randomCorner = sf::Vector2f(10.f, window.getSize().y - 10.f); break;
+			case 2: this->randomCorner = sf::Vector2f(window.getSize().x - 10.f, window.getSize().y - 10.f); break;
+			case 3: this->randomCorner = sf::Vector2f(window.getSize().x - 10.f, 10.f); break;
+		}
+
+		this->enemies.push_back(new Enemy_Fire(this->textures["ENEMY1"], this->randomCorner));
+	}
 	
 }
 
@@ -122,6 +140,8 @@ void Game::updatePollEvents()
 			this->player->resetAnimationTimer();
 
 		//Shooting events
+
+		int counter = 0;
 		accTimer += this->deltaTime;
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && accTimer > 500.f)
 		{
@@ -135,6 +155,7 @@ void Game::updatePollEvents()
 		//Spawning enemy on click
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
 		{
+
 			this->enemies.push_back(new Enemy_Fire(this->textures["ENEMY1"], sf::Vector2f(sf::Mouse::getPosition(window))));
 			/*std::cout << enemies.size() << std::endl;*/
 		}
@@ -218,6 +239,15 @@ void Game::updateEnemies()
 			this->enemies.erase(enemies.begin() + i);
 		}
 
+		//Enemy - enemy collision
+		//for (unsigned k = 0; k < enemies.size(); k++)
+		//{
+		//	if (enemies[i]->getBounds().intersects(enemies[k]->getBounds()))
+		//	{
+		//		enemies[k]->moveBy(10.f, 0.f);
+		//		break;
+		//	}
+		//}
 	}
 	
 }
@@ -251,6 +281,7 @@ void Game::update()
 	this->updatePollEvents();
 	this->updateGui();
 	this->updatePlayer();
+	this->spawnEnemies();
 	this->updateCollision();
 	this->updateCombat();
 	this->updateEnemies();

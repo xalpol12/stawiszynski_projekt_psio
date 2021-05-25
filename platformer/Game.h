@@ -17,9 +17,11 @@ private:
 
 
 	//Variables
+	sf::Vector2f randomCorner;
 	sf::Clock clock;
 	float deltaTime;
 	float accTimer;
+	float spawnTimer, spawnTimerMax;
 	sf::Clock shootingTimer;
 
 	//Resources
