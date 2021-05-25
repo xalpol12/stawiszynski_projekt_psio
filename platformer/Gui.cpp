@@ -63,9 +63,7 @@ void Gui::updatePointText(int points_)
 
 void Gui::updatePlayerHpBar(int hp_, int hpMax_)
 {
-	std::cout << hp_ << " " << hpMax_ << std::endl;
 	float hpPercent = static_cast<float>(hp_) / hpMax_;
-	std::cout << hpPercent << std::endl;
 	this->playerHpBar.setSize(sf::Vector2f(this->hpBarSize.x * hpPercent, this->hpBarSize.y));
 }
 

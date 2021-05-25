@@ -12,10 +12,7 @@ private:
 	std::vector<std::vector<Tile*>> map;
 
 	//Collision area
-	int fromX;
-	int toX;
-	int fromY;
-	int toY;
+	int fromX, toX, fromY, toY;
 
 	void setDimensions(sf::Vector2u windowSize_);
 
