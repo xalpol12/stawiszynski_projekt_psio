@@ -216,7 +216,6 @@ void Game::updateEnemies()
 		{
 			this->player->loseHp(this->enemies[i]->getDamage());
 			this->enemies.erase(enemies.begin() + i);
-			std::cout << this->player->getHp();
 		}
 
 	}

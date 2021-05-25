@@ -30,7 +30,7 @@ void Gui::initPlayerHpBar()
 {
 	this->playerHpBar.setSize(sf::Vector2f(this->hpBarSize));
 	this->playerHpBar.setFillColor(sf::Color::Red);
-	
+
 	this->playerHpBarBack = this->playerHpBar;
 	this->playerHpBarBack.setFillColor(sf::Color(25, 25, 25, 200));
 }
@@ -63,8 +63,10 @@ void Gui::updatePointText(int points_)
 
 void Gui::updatePlayerHpBar(int hp_, int hpMax_)
 {
-	float hpPercent = static_cast<float>(hp_ / hpMax_);
-	this->playerHpBar.setSize(sf::Vector2f(300.f * hpPercent, this->hpBarSize.y));
+	std::cout << hp_ << " " << hpMax_ << std::endl;
+	float hpPercent = static_cast<float>(hp_) / hpMax_;
+	std::cout << hpPercent << std::endl;
+	this->playerHpBar.setSize(sf::Vector2f(this->hpBarSize.x * hpPercent, this->hpBarSize.y));
 }
 
 void Gui::update(int points_, int hp_, int hpMax_ )
