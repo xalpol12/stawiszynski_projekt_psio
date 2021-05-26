@@ -197,7 +197,8 @@ void TileMap::updatePlayerCollision(Player* player)
 					if ((playerBounds.left < tileBounds.left
 						&& playerBounds.left + playerBounds.width < tileBounds.left + tileBounds.width
 						&& playerBounds.top < tileBounds.top + tileBounds.height
-						&& playerBounds.top + playerBounds.height > tileBounds.top)&&((tileLocation ==borderLocation::Left)||(tileLocation == borderLocation::Both)))
+						&& playerBounds.top + playerBounds.height > tileBounds.top)
+						&&((tileLocation ==borderLocation::Left)||(tileLocation == borderLocation::Both)))
 					{
 						player->resetVelocityX();
 						player->setPosition(tileBounds.left - playerBounds.width, playerBounds.top);
@@ -212,6 +213,63 @@ void TileMap::updatePlayerCollision(Player* player)
 					{
 						player->resetVelocityX();
 						player->setPosition(tileBounds.left + tileBounds.width, playerBounds.top);
+					}
+
+					//Two collisions at the same time (border cases)
+					//Left and top
+					if (((playerBounds.left > tileBounds.left
+						&& playerBounds.left + playerBounds.width > tileBounds.left + tileBounds.width
+						&& playerBounds.top < tileBounds.top + tileBounds.height
+						&& playerBounds.top + playerBounds.height > tileBounds.top)
+						&& ((tileLocation == borderLocation::Right) || (tileLocation == borderLocation::Both))) &&
+						(playerBounds.top > tileBounds.top
+							&& playerBounds.top + playerBounds.height > tileBounds.top + tileBounds.height
+							&& playerBounds.left < tileBounds.left + tileBounds.width
+							&& playerBounds.left + playerBounds.width > tileBounds.left)) 
+					{
+						player->setPosition(playerBounds.left, tileBounds.top - playerBounds.height);
+					}
+
+					//////Left and bottom
+					//else if (((playerBounds.left > tileBounds.left
+					//	&& playerBounds.left + playerBounds.width > tileBounds.left + tileBounds.width
+					//	&& playerBounds.top < tileBounds.top + tileBounds.height
+					//	&& playerBounds.top + playerBounds.height > tileBounds.top)
+					//	&& ((tileLocation == borderLocation::Right) || (tileLocation == borderLocation::Both))) &&
+					//	(playerBounds.top < tileBounds.top
+					//		&& playerBounds.top + playerBounds.height < tileBounds.top + tileBounds.height
+					//		&& playerBounds.left < tileBounds.left + tileBounds.width
+					//		&& playerBounds.left + playerBounds.width > tileBounds.left))
+					//{
+					//	player->setPosition(playerBounds.left, tileBounds.top - playerBounds.height);
+					//}
+
+					//Right and bottom
+					if (((playerBounds.left < tileBounds.left
+						&& playerBounds.left + playerBounds.width < tileBounds.left + tileBounds.width
+						&& playerBounds.top < tileBounds.top + tileBounds.height
+						&& playerBounds.top + playerBounds.height > tileBounds.top)
+						&& ((tileLocation == borderLocation::Left) || (tileLocation == borderLocation::Both))) &&
+						(playerBounds.top < tileBounds.top
+							&& playerBounds.top + playerBounds.height < tileBounds.top + tileBounds.height
+							&& playerBounds.left < tileBounds.left + tileBounds.width
+							&& playerBounds.left + playerBounds.width > tileBounds.left))
+					{
+						player->setPosition(tileBounds.left - playerBounds.width, playerBounds.top);
+					}
+
+					//Right and top
+					else if (((playerBounds.left < tileBounds.left
+						&& playerBounds.left + playerBounds.width < tileBounds.left + tileBounds.width
+						&& playerBounds.top < tileBounds.top + tileBounds.height
+						&& playerBounds.top + playerBounds.height > tileBounds.top)
+						&& ((tileLocation == borderLocation::Left) || (tileLocation == borderLocation::Both))) &&
+						(playerBounds.top > tileBounds.top
+							&& playerBounds.top + playerBounds.height > tileBounds.top + tileBounds.height
+							&& playerBounds.left < tileBounds.left + tileBounds.width
+							&& playerBounds.left + playerBounds.width > tileBounds.left))
+					{
+						player->setPosition(tileBounds.left - playerBounds.width, playerBounds.top);
 					}
 				}
 			}
