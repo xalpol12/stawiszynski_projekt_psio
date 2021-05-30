@@ -12,6 +12,7 @@ private:
 
 	int marginX, marginY;
 	int boxCount;
+	bool clickedEscape;
 
 
 	void createBoxes();

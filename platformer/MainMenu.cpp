@@ -11,6 +11,7 @@ void MainMenu::createBoxes()
 
 void MainMenu::initVariables()
 {
+	this->clickedEscape = false;
 	this->marginX = 100;
 	this->marginY = 50;
 	this->boxCount = 5;

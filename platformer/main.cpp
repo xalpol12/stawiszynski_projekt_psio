@@ -13,7 +13,7 @@ int main()
 		menu.update();
 		menu.render();
 	}
-	if (!menu.getWindow().isOpen())
+	if (!menu.getWindow().isOpen()&&menu.wasEscapePressed()==false)
 	{
 		Game game;
 		while (game.getWindow().isOpen())

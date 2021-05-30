@@ -8,6 +8,7 @@ protected:
 	sf::Event event;
 	sf::Font font;
 	sf::Text text;
+	bool clickedEscape;
 
 	void initWindow(std::string title_);
 	void loadFont();
@@ -17,6 +18,7 @@ public:
 	~SubMenu();
 
 	void endState();
+	bool wasEscapePressed();
 
 	void updatePollEvents();
 	virtual void update();

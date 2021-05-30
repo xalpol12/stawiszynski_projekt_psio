@@ -40,7 +40,7 @@ void HighScoreWindow::initPanels()
 	for (auto it = text.begin(); it != text.end(); it++)
 	{
 		this->panels[it->first] = new MenuBox(panelHeight, panelWidth, marginX, it->first * marginY,
-			std::to_string(it->first) + ". " + it->second, this->font, 20);
+			std::to_string(it->first) + ". " + it->second + " points", this->font, 20);
 	}
 }
 

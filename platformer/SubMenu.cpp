@@ -15,6 +15,7 @@ void SubMenu::loadFont()
 
 void SubMenu::initVariables()
 {
+	this->clickedEscape = false;
 	this->loadFont();
 }
 
@@ -33,14 +34,25 @@ void SubMenu::endState()
 	this->window.close();
 }
 
+bool SubMenu::wasEscapePressed()
+{
+	return this->clickedEscape;
+}
+
 void SubMenu::updatePollEvents()
 {
 	while (this->window.pollEvent(this->event))
 	{
 		if (this->event.type == sf::Event::Closed)
+		{
+			clickedEscape = true;
+			std::cout << "SWITCH bool" << std::endl;
 			this->window.close();
+		}
 		else if (this->event.type == sf::Event::KeyPressed && this->event.key.code == sf::Keyboard::Escape)
+		{
 			this->window.close();
+		}
 	}
 }
 
