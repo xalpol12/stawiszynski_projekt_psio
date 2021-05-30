@@ -1,6 +1,22 @@
 #include "stdafx.h"
 #include "MainMenu.h"
 
+void MainMenu::initAudio()
+{
+	this->songFilePath = "Music/menu_whole.ogg";
+	this->music = new SongPlayer(songFilePath, 10, true);
+}
+
+void MainMenu::playAudio()
+{
+	this->music->playMusic();
+}
+
+void MainMenu::stopAudio()
+{
+	this->music->stopMusic();
+}
+
 void MainMenu::createBoxes()
 {	
 	this->menus["PLAY"] = new MenuBox(windowSize.x-2*this->marginX, windowSize.y/boxCount - this->marginY, this->marginX, this->marginY,"Play", this->font, 20);
@@ -18,6 +34,8 @@ void MainMenu::initVariables()
 	this->windowSize = {static_cast<float>(this->window.getSize().x), static_cast<float>(this->window.getSize().y) };
 	this->loadFont();
 	this->createBoxes();
+	this->initAudio();
+	this->playAudio();
 }
 
 
@@ -34,6 +52,7 @@ MainMenu::~MainMenu()
 	{
 		delete it->second;
 	}
+	delete this->music;
 }
 
 
@@ -67,6 +86,7 @@ void MainMenu::openSelected(std::string selected_)
 	if (selected_ == "PLAY")
 	{
 		this->endState();
+		this->stopAudio();
 	}
 	else if (selected_ == "HIGHSCORE")
 	{

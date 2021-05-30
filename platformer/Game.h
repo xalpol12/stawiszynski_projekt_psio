@@ -5,6 +5,7 @@
 #include "Tile.h"
 #include "TileMap.h"
 #include "Gui.h"
+#include "SongPlayer.h"
 
 class Game
 {
@@ -35,11 +36,18 @@ private:
 	//Gui/gameplay elements
 	int points;
 
+	//Audio elements
+	std::map<std::string, std::string> audioPath;
+	std::vector<SongPlayer*> songs;
+	int musicSwitchState;
+	bool isPlayingMusic;
+
 	void initVariables();
 	void initWindow();
 	void initBackground();
 	void initGui();
 	void initTextures();
+	void initMusic();
 	void initPlayer();
 	void initTileMap();
 public:
@@ -49,6 +57,7 @@ public:
 
 	//Accessors
 	sf::Texture* getTexture(std::string texture_);
+	const int getPlayerHp() const;
 
 	//Spawn
 	void spawnEnemies();
@@ -64,10 +73,19 @@ public:
 	void updateBullets();
 	void update();
 
+	//Music
+	void playMainMusic();
+	void stopMainMusic();
+	void playEndMusic();
+	void stopEndMusic();
+
+
 	//Render
 	void renderPlayer();
 	void renderWorld();
 	void render();
 	const sf::RenderWindow& getWindow() const;
+
+	void over();
 };
 

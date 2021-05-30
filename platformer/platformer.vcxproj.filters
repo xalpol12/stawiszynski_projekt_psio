@@ -21,6 +21,9 @@
     <Filter Include="States">
       <UniqueIdentifier>{f8840f43-d3d1-4b52-aded-4b0586250e69}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Audio">
+      <UniqueIdentifier>{e1ebb230-12c7-4d40-ada6-91ab0cbdb3cd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -68,6 +71,9 @@
     <ClCompile Include="HighScoreWindow.cpp">
       <Filter>States</Filter>
     </ClCompile>
+    <ClCompile Include="SongPlayer.cpp">
+      <Filter>Audio</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -111,6 +117,9 @@
     </ClInclude>
     <ClInclude Include="HighScoreWindow.h">
       <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="SongPlayer.h">
+      <Filter>Audio</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
