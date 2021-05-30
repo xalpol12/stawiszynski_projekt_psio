@@ -12,9 +12,6 @@ void Game::initVariables()
 	this->points = 0;
 	this->spawnTimer = 0.f;
 	this->spawnTimerMax = 2000.f;
-	this->musicSwitchState = 1;
-	this->audioPath["MAINSONG1"] = "Music/PapSmear.ogg";
-	this->audioPath["ENDSONG"] = "Music/endscreen.ogg";
 }
 
 void Game::initBackground()
@@ -27,13 +24,6 @@ void Game::initBackground()
 void Game::initGui()
 {
 	this->gui = new Gui();
-}
-
-void Game::initMusic()
-{
-	this->songs.push_back(new SongPlayer(this->audioPath["MAINSONG1"], 10, true));
-	this->songs.push_back(new SongPlayer(this->audioPath["ENDSONG"], 10, true));
-	this->isPlayingMusic = false;
 }
 
 void Game::initPlayer()
@@ -65,7 +55,6 @@ Game::Game()
 	this->initBackground();
 	this->initTextures();
 	this->initGui();
-	this->initMusic();
 	this->initPlayer();
 	this->initTileMap();
 }
@@ -120,14 +109,10 @@ void Game::spawnEnemies()
 			case 2: this->randomCorner = sf::Vector2f(window.getSize().x - 10.f, window.getSize().y - 10.f); break;
 			case 3: this->randomCorner = sf::Vector2f(window.getSize().x - 10.f, 10.f); break;
 		}
+
 		this->enemies.push_back(new Enemy_Fire(this->textures["ENEMY1"], this->randomCorner));
 	}
 	
-}
-
-const int Game::getPlayerHp() const
-{
-	return this->player->getHp();
 }
 
 void Game::updateDeltaTime()
@@ -290,41 +275,6 @@ void Game::updateBullets()
 	}
 }
 
-void Game::playMainMusic()
-{
-	if(!isPlayingMusic)
-	this->songs.at(0)->playMusic();
-	isPlayingMusic = true;
-}
-
-void Game::playEndMusic()
-{
-	if (isPlayingMusic && musicSwitchState == 1)
-	{
-		musicSwitchState == 0;
-		this->stopMainMusic();
-	}
-	if (!isPlayingMusic)
-	{
-		this->songs.at(this->songs.size() - 1)->playMusic();
-	}
-	isPlayingMusic = true;
-}
-
-void Game::stopMainMusic()
-{
-	if(isPlayingMusic)
-	this->songs.at(0)->stopMusic();
-	isPlayingMusic = false;
-}
-
-void Game::stopEndMusic()
-{
-	if(isPlayingMusic)
-	this->songs.at(this->songs.size() - 1)->stopMusic();
-	isPlayingMusic = false;
-}
-
 void Game::update()
 {
 	this->updateDeltaTime();
@@ -333,7 +283,6 @@ void Game::update()
 	this->updatePlayer();
 	this->spawnEnemies();
 	this->updateCollision();
-	this->playMainMusic();
 	this->updateCombat();
 	this->updateEnemies();
 	this->updateBullets();
@@ -380,16 +329,6 @@ const sf::RenderWindow& Game::getWindow() const
 {
 	return this->window;
 }
-
-void Game::over()
-{
-	this->updatePollEvents();
-	this->gui->updateGameOver();
-	this->gui->renderGameOver(this->window);
-	this->playEndMusic();
-	this->window.display();
-}
-
 
 
 
