@@ -18,6 +18,13 @@ void Player::initTexture()
 	}
 }
 
+float Player::calcShootingOrientation()
+{
+	float playerX = this->getPosition().x;
+	float cursorX = sf::Mouse::getPosition(*this->window).x;
+	return cursorX - playerX;
+}
+
 void Player::initSprite()
 {
 	this->sprite.setTexture(this->textureSheet);
@@ -43,8 +50,9 @@ void Player::initPhysics()
 	this->velocityMaxY = 20.f;
 }
 
-Player::Player()
+Player::Player(sf::Window* window_)
 {
+	this->window = window_;
 	this->initVariables();
 	this->initTexture();
 	this->initSprite();
@@ -233,8 +241,45 @@ void Player::updateAnimations()
 			this->animationTimer.restart();
 			this->sprite.setTextureRect(this->currentFrame);
 		}
+		if (this->calcShootingOrientation() < 0.f)
+		{
+			this->sprite.setScale(scalingFactor, scalingFactor);
+			this->sprite.setOrigin(0.f, 0.f);
+		}
+		else
+		{
+			this->sprite.setScale(-scalingFactor, scalingFactor);
+			this->sprite.setOrigin(this->sprite.getGlobalBounds().width / scalingFactor, 0.f);
+		}
+
+	}
+	else if (this->animState == PLAYER_ANIMATION_STATE::MOVING_LEFT && isShooting)  //Running left and shooting
+	{
+		if (this->animationTimer.getElapsedTime().asSeconds() >= 0.2f || this->getAnimSwitch())
+		{
+			this->currentFrame.top = 78;
+			this->currentFrame.left += 32;
+			if (this->currentFrame.left >= 134 || this->currentFrame.left < 38)
+				this->currentFrame.left = 38;
+			this->animationTimer.restart();
+			this->sprite.setTextureRect(this->currentFrame);
+		}
 		this->sprite.setScale(scalingFactor, scalingFactor);
 		this->sprite.setOrigin(0.f, 0.f);
+	}
+	else if (this->animState == PLAYER_ANIMATION_STATE::MOVING_RIGHT && isShooting)  //Running left and shooting
+	{
+		if (this->animationTimer.getElapsedTime().asSeconds() >= 0.2f || this->getAnimSwitch())
+		{
+			this->currentFrame.top = 78;
+			this->currentFrame.left += 32;
+			if (this->currentFrame.left >= 134 || this->currentFrame.left < 38)
+				this->currentFrame.left = 38;
+			this->animationTimer.restart();
+			this->sprite.setTextureRect(this->currentFrame);
+		}
+		this->sprite.setScale(-scalingFactor, scalingFactor);
+		this->sprite.setOrigin(this->sprite.getGlobalBounds().width / scalingFactor, 0.f);
 	}
 
 	if (this->animState == PLAYER_ANIMATION_STATE::IDLE)				//Idle
@@ -255,7 +300,7 @@ void Player::updateAnimations()
 		{
 			this->currentFrame.top = 21;
 			this->currentFrame.left += 25;
-			if (this->currentFrame.left >= 165 || this->currentFrame.left < 90)
+			if (this->currentFrame.left >= 160 || this->currentFrame.left < 90)
 				this->currentFrame.left = 90;
 			this->animationTimer.restart();
 			this->sprite.setTextureRect(this->currentFrame);
@@ -291,9 +336,6 @@ void Player::updateAnimations()
 	}
 	else
 		animationTimer.restart();
-
-	//
-
 }
 
 void Player::update()

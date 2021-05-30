@@ -9,12 +9,14 @@ private:
 	sf::Texture textureSheet;
 	float scalingFactor;
 	sf::Clock animationTimer;
+	sf::Window* window;
 
 	//Animation
 	short animState;
 	sf::IntRect currentFrame;		//Rectangle 21x24     1 - 3x21, 2 - 24x21, 3 - 24x45, 4 - 3x45 
 									//				Punkt 1 - x,y;   2 - x+21, y; 3 - x+21, y+24;  4 - x, y+21	
 	bool animationSwitch;
+	float calcShootingOrientation();
 
 	//Physics
 	sf::Vector2f velocity;
@@ -41,7 +43,7 @@ private:
 	void initPhysics();
 
 public:
-	Player();
+	Player(sf::Window* window);
 	~Player();
 
 

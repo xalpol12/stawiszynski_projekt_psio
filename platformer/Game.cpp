@@ -11,7 +11,7 @@ void Game::initVariables()
 {
 	this->points = 0;
 	this->spawnTimer = 0.f;
-	this->spawnTimerMax = 1000.f;
+	this->spawnTimerMax = 2000.f;
 }
 
 void Game::initBackground()
@@ -28,7 +28,7 @@ void Game::initGui()
 
 void Game::initPlayer()
 {
-	this->player = new Player();
+	this->player = new Player(&this->window);
 	shootingTimer.restart();
 }
 
