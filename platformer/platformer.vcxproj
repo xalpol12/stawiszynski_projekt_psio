@@ -144,11 +144,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="CreditsMenu.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Enemy_Fire.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Gui.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MainMenu.cpp" />
+    <ClCompile Include="MenuBox.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -161,10 +164,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bullet.h" />
+    <ClInclude Include="CreditsMenu.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Enemy_Fire.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Gui.h" />
+    <ClInclude Include="MainMenu.h" />
+    <ClInclude Include="MenuBox.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Tile.h" />

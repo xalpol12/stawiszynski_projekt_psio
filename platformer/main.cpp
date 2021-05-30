@@ -1,14 +1,22 @@
 #include "stdafx.h"
 #include "Game.h"
+#include"MainMenu.h"
 
 int main()
 {
 	srand(time(0));
-	Game game;
-
-	while (game.getWindow().isOpen())
+	MainMenu menu;
+	while (menu.getWindow().isOpen())
 	{
-		game.update();
-		game.render();
+		menu.update();
+		menu.render();
 	}
+	//Game game;
+
+	//while (game.getWindow().isOpen())
+	//{
+	//	game.update();
+	//	game.render();
+	//}
+
 }
