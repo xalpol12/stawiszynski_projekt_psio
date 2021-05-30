@@ -50,7 +50,7 @@ void CreditsWindow::initVariables()
 	this->panelCount = 4; //TODO - set to dynamic size
 	this->panelHeight = windowSize.x / (panelCount * 2);
 	this->panelWidth =  windowSize.y / (panelCount * 2);
-	this->marginX = 100;
+	this->marginX = 0;
 	this->marginY = 50;
 	this->loadFont();
 	this->loadFromTxt();
