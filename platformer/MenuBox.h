@@ -8,7 +8,7 @@ private:
 	sf::Text text;
 
 public:
-	MenuBox(float height_, float width_, float posX_, float posY_, std::string text_, sf::Font font_);
+	MenuBox(float height_, float width_, float posX_, float posY_, std::string text_, sf::Font font_, int fontSize_);
 	~MenuBox();
 
 	//Accessors

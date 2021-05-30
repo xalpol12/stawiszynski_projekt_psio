@@ -1,29 +1,16 @@
 #include "stdafx.h"
 #include "MainMenu.h"
 
-void MainMenu::initWindow()
-{
-	this->window.create(sf::VideoMode(800, 600), "Main Menu", sf::Style::Close | sf::Style::Titlebar);
-	this->window.setFramerateLimit(30);
-}
-
-void MainMenu::loadFont()
-{
-	if (!this->font.loadFromFile("Fonts/VCR_OSD_MONO_1.001.ttf"))
-		std::cout << "ERROR::GAME::Failed to load font" << "\n";
-}
-
 void MainMenu::createBoxes()
 {	
-	this->menus["PLAY"] = new MenuBox(windowSize.x-2*this->marginX, windowSize.y/boxCount - this->marginY, this->marginX, this->marginY,"Play", this->font);
-	this->menus["HIGHSCORE"] = new MenuBox(windowSize.x - 2 * this->marginX, windowSize.y / boxCount - this->marginY, this->marginX, windowSize.y / boxCount + this->marginY, "High score", this->font);
-	this->menus["SETTINGS"] = new MenuBox(windowSize.x - 2 * this->marginX, windowSize.y / boxCount - this->marginY, this->marginX, 2 * windowSize.y / boxCount + this->marginY, "Settings", this->font);
-	this->menus["CREDITS"] = new MenuBox(windowSize.x - 2 * this->marginX, windowSize.y / boxCount - this->marginY, this->marginX, 3 * windowSize.y / boxCount + this->marginY, "Credits", this->font);
+	this->menus["PLAY"] = new MenuBox(windowSize.x-2*this->marginX, windowSize.y/boxCount - this->marginY, this->marginX, this->marginY,"Play", this->font, 20);
+	this->menus["HIGHSCORE"] = new MenuBox(windowSize.x - 2 * this->marginX, windowSize.y / boxCount - this->marginY, this->marginX, windowSize.y / boxCount + this->marginY, "High score", this->font, 20);
+	this->menus["SETTINGS"] = new MenuBox(windowSize.x - 2 * this->marginX, windowSize.y / boxCount - this->marginY, this->marginX, 2 * windowSize.y / boxCount + this->marginY, "Settings", this->font, 20);
+	this->menus["CREDITS"] = new MenuBox(windowSize.x - 2 * this->marginX, windowSize.y / boxCount - this->marginY, this->marginX, 3 * windowSize.y / boxCount + this->marginY, "Credits", this->font, 20);
 }
 
 void MainMenu::initVariables()
 {
-	this->isSelected = false;
 	this->marginX = 100;
 	this->marginY = 50;
 	this->boxCount = 5;
@@ -36,9 +23,8 @@ void MainMenu::initVariables()
 
 MainMenu::MainMenu()
 {
-	this->initWindow();
+	this->initWindow("Main Menu");
 	this->initVariables();
-
 }
 
 MainMenu::~MainMenu()
@@ -49,20 +35,6 @@ MainMenu::~MainMenu()
 	}
 }
 
-void MainMenu::endState()
-{
-}
-
-void MainMenu::updatePollEvents()
-{
-	while (this->window.pollEvent(this->event))
-	{
-		if (this->event.type == sf::Event::Closed)
-			this->window.close();
-		else if (this->event.type == sf::Event::KeyPressed && this->event.key.code == sf::Keyboard::Escape)
-			this->window.close();
-	}
-}
 
 void MainMenu::updateCollision()
 {
@@ -76,13 +48,11 @@ void MainMenu::updateCollision()
 			mousePos.y < panelBounds.top + panelBounds.height)
 		{
 			it->second->changeTextColor(sf::Color::Color(150, 150, 150, 255));
-			if (sf::Mouse::isButtonPressed(sf::Mouse::Left)&&!isSelected)
+			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			{
 				it->second->changeTextColor(sf::Color::Color(90, 90, 90, 255));
 				openSelected(it->first);
-				this->isSelected = true;
 			}
-			std::cout << "Inside" << std::endl;
 		}
 		else
 		{
@@ -95,18 +65,46 @@ void MainMenu::openSelected(std::string selected_)
 {
 	if (selected_ == "PLAY")
 	{
-		std::cout << "PLAY SELECTED" << std::endl;
+		this->endState();
 	}
 	else if (selected_ == "HIGHSCORE")
 	{
+		this->openHighScoreWindow();
 	}
 	else if (selected_ == "SETTINGS")
 	{
 	}
 	else
 	{
+		this->openCreditsWindow();
 	}
 }
+
+void MainMenu::openHighScoreWindow()
+{
+	HighScoreWindow highScore;
+	while (highScore.getWindow().isOpen())
+	{
+		highScore.update();
+		highScore.render();
+	}
+}
+
+void MainMenu::openOptionsWindow()
+{
+}
+
+void MainMenu::openCreditsWindow()
+{
+	CreditsWindow creditsWindow;
+	while(creditsWindow.getWindow().isOpen())
+	{
+		creditsWindow.update();
+		creditsWindow.render();
+	}
+
+}
+
 
 void MainMenu::update()
 {

@@ -1,36 +1,35 @@
 #pragma once
 #include "MenuBox.h"
+#include "SubMenu.h"
+#include "CreditsWindow.h"
+#include "HighScoreWindow.h"
 
-class MainMenu
+class MainMenu : public SubMenu
 {
 private:
 	sf::Vector2f windowSize;
-	sf::RenderWindow window;
-	sf::Event event;
-	sf::Font font;
 	std::map<std::string, MenuBox*> menus;
-	MenuBox* test;
 
 	int marginX, marginY;
 	int boxCount;
-	bool isSelected;
 
-	void loadFont();
+
 	void createBoxes();
-
 	void initVariables();
-	void initWindow();
+
 public:
 	MainMenu();
 	~MainMenu();
 
-	//Functions
-	void endState();
-
 	//Updates
-	void updatePollEvents();
 	void updateCollision();
 	void openSelected(std::string selected_);
+
+	//Submenus
+	void openHighScoreWindow();
+	void openOptionsWindow();
+	void openCreditsWindow();
+
 
 	void update();
 	void render();

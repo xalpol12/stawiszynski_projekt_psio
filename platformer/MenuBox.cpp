@@ -2,19 +2,18 @@
 #include "MenuBox.h"
 
 
-MenuBox::MenuBox(float height_, float width_, float posX_, float posY_, std::string text_, sf::Font font_)
+MenuBox::MenuBox(float height_, float width_, float posX_, float posY_, std::string text_, sf::Font font_, int fontSize_)
 {
 	this->size.x = height_;
 	this->size.y = width_;
 	this->shape.setSize(this->size);
 	this->shape.setPosition(posX_,posY_);
-	this->shape.setFillColor(sf::Color::Black);
+	this->shape.setFillColor(sf::Color::Transparent);
 
 	this->font = font_;
-	std::cout << (posX_ + size.x) / 2 << " " << (posY_ + size.y) / 2 << std::endl;
 	this->text.setPosition((posX_ + size.x) / 2, (posY_ + size.y/2));
 	this->text.setFont(this->font);
-	this->text.setCharacterSize(20);
+	this->text.setCharacterSize(fontSize_);
 	this->text.setFillColor(sf::Color::White);
 	this->text.setString(text_);
 

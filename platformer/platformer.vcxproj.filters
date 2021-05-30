@@ -59,7 +59,13 @@
     <ClCompile Include="MenuBox.cpp">
       <Filter>States</Filter>
     </ClCompile>
-    <ClCompile Include="CreditsMenu.cpp">
+    <ClCompile Include="SubMenu.cpp">
+      <Filter>States</Filter>
+    </ClCompile>
+    <ClCompile Include="CreditsWindow.cpp">
+      <Filter>States</Filter>
+    </ClCompile>
+    <ClCompile Include="HighScoreWindow.cpp">
       <Filter>States</Filter>
     </ClCompile>
   </ItemGroup>
@@ -97,7 +103,13 @@
     <ClInclude Include="MenuBox.h">
       <Filter>States</Filter>
     </ClInclude>
-    <ClInclude Include="CreditsMenu.h">
+    <ClInclude Include="SubMenu.h">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="CreditsWindow.h">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="HighScoreWindow.h">
       <Filter>States</Filter>
     </ClInclude>
   </ItemGroup>
