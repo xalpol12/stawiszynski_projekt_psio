@@ -18,8 +18,13 @@ int main()
 		Game game;
 		while (game.getWindow().isOpen())
 		{
-			game.update();
-			game.render();
+			if (game.getPlayerHp() > 0)
+			{
+				game.update();
+				game.render();
+			}
+			else
+				game.over();
 		}
 	}
 

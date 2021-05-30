@@ -46,7 +46,6 @@ void SubMenu::updatePollEvents()
 		if (this->event.type == sf::Event::Closed)
 		{
 			clickedEscape = true;
-			std::cout << "SWITCH bool" << std::endl;
 			this->window.close();
 		}
 		else if (this->event.type == sf::Event::KeyPressed && this->event.key.code == sf::Keyboard::Escape)

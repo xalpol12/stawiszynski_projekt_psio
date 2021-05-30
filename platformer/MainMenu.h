@@ -3,18 +3,23 @@
 #include "SubMenu.h"
 #include "CreditsWindow.h"
 #include "HighScoreWindow.h"
+#include "SongPlayer.h"
 
 class MainMenu : public SubMenu
 {
 private:
 	sf::Vector2f windowSize;
 	std::map<std::string, MenuBox*> menus;
+	SongPlayer* music;
 
 	int marginX, marginY;
 	int boxCount;
 	bool clickedEscape;
+	std::string songFilePath;
 
-
+	void initAudio();
+	void playAudio();
+	void stopAudio();
 	void createBoxes();
 	void initVariables();
 
