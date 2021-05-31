@@ -6,6 +6,7 @@
 #include "TileMap.h"
 #include "Gui.h"
 #include "SongPlayer.h"
+#include "TextFileManager.h"
 
 class Game
 {
@@ -15,6 +16,7 @@ private:
 
 	Gui* gui;
 	Player* player;
+	TextFileManager* textManager;
 
 
 	//Variables
@@ -27,6 +29,7 @@ private:
 
 	//Resources
 	std::string mapFilePath;
+	std::string scoreFilePath;
 	sf::Sprite backgroundTexture;
 	std::map<std::string, sf::Texture*> textures;
 	std::vector<Bullet*> bullets;
@@ -40,7 +43,6 @@ private:
 	std::map<std::string, std::string> audioPath;
 	std::vector<SongPlayer*> songs;
 	int musicSwitchState;
-	bool isPlayingMusic;
 
 	void initVariables();
 	void initWindow();
@@ -86,6 +88,7 @@ public:
 	void render();
 	const sf::RenderWindow& getWindow() const;
 
+	void savePoints();
 	void over();
 };
 

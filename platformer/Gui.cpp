@@ -104,7 +104,6 @@ void Gui::updateGameOver()
 {
 	if (this->counter < this->maxCounter)
 		this->counter+=5;
-	std::cout << counter << std::endl;
 	this->animateGameOverRectangle(counter);
 	this->animateGameOverText(counter);
 }

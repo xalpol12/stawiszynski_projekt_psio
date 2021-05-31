@@ -13,6 +13,7 @@ void Game::initVariables()
 	this->spawnTimer = 0.f;
 	this->spawnTimerMax = 2000.f;
 	this->musicSwitchState = 1;
+	this->scoreFilePath = "Txt/highscore.txt";
 	this->audioPath["MAINSONG1"] = "Music/PapSmear.ogg";
 	this->audioPath["ENDSONG"] = "Music/endscreen.ogg";
 }
@@ -31,9 +32,9 @@ void Game::initGui()
 
 void Game::initMusic()
 {
-	this->songs.push_back(new SongPlayer(this->audioPath["MAINSONG1"], 10, true));
-	this->songs.push_back(new SongPlayer(this->audioPath["ENDSONG"], 10, true));
-	this->isPlayingMusic = false;
+	this->songs.push_back(new SongPlayer(this->audioPath["MAINSONG1"], 0, true)); //TODO unmute songs before final release
+	this->songs.push_back(new SongPlayer(this->audioPath["ENDSONG"], 0, true));
+	this->playMainMusic();
 }
 
 void Game::initPlayer()
@@ -91,6 +92,8 @@ Game::~Game()
 	{
 		delete i;
 	}
+
+	delete this->textManager;
 
 	////Delete tiles
 	//for (auto* i : this->tiles)
@@ -218,7 +221,7 @@ void Game::updateCollision()
 
 void Game::updateCombat()
 {
-	for (int i = 0; i < bullets.size(); i++)
+	for (size_t i = 0; i < bullets.size(); i++)
 	{
 		//Enemy collision
 		for (size_t k = 0; k < enemies.size(); k++)
@@ -292,37 +295,28 @@ void Game::updateBullets()
 
 void Game::playMainMusic()
 {
-	if(!isPlayingMusic)
 	this->songs.at(0)->playMusic();
-	isPlayingMusic = true;
 }
 
 void Game::playEndMusic()
 {
-	if (isPlayingMusic && musicSwitchState == 1)
+	if (this->musicSwitchState == 1)
 	{
-		musicSwitchState == 0;
+		this->musicSwitchState -= 1;
 		this->stopMainMusic();
-	}
-	if (!isPlayingMusic)
-	{
 		this->songs.at(this->songs.size() - 1)->playMusic();
 	}
-	isPlayingMusic = true;
+	std::cout << musicSwitchState << std::endl;
 }
 
 void Game::stopMainMusic()
 {
-	if(isPlayingMusic)
 	this->songs.at(0)->stopMusic();
-	isPlayingMusic = false;
 }
 
 void Game::stopEndMusic()
 {
-	if(isPlayingMusic)
 	this->songs.at(this->songs.size() - 1)->stopMusic();
-	isPlayingMusic = false;
 }
 
 void Game::update()
@@ -333,7 +327,6 @@ void Game::update()
 	this->updatePlayer();
 	this->spawnEnemies();
 	this->updateCollision();
-	this->playMainMusic();
 	this->updateCombat();
 	this->updateEnemies();
 	this->updateBullets();
@@ -381,14 +374,26 @@ const sf::RenderWindow& Game::getWindow() const
 	return this->window;
 }
 
+void Game::savePoints()
+{
+	if (this->musicSwitchState == 1)
+	{
+		this->textManager = new TextFileManager();
+		this->textManager->saveToFile(this->points, this->scoreFilePath);
+	}
+}
+
 void Game::over()
 {
+	this->savePoints();
 	this->updatePollEvents();
 	this->gui->updateGameOver();
 	this->gui->renderGameOver(this->window);
 	this->playEndMusic();
 	this->window.display();
 }
+
+
 
 
 
