@@ -2,8 +2,8 @@
 
 TODO: 
 
-- [ ] add gameover state (and fun music to a death screen)
-- [ ] add audio effects and music (create audioManager?)
+- [X] add gameover state (and fun music to a death screen)
+- [X] add audio effects and music (create audioManager?)
 - [ ] add options in main menu (map picker, mute sounds, mute music)
 - [ ] add modifiers and pickup items
 - [ ] add more enemies (one type of enemy is not enough huh?)
