@@ -1,6 +1,8 @@
 MUSIC
 Main Menu Music: Dawid Stawiszynski
 MUSIC2
-Game Music: Crystal Castles - "Pap Smear"
+Game Music 1: Dawid Stawiszynski
+MUSIC 3
+Game Music 2: Crystal Castles - "Pap Smear"
 MUSIC3
 End Music: Susumu Hirasawa - "Gats Theme" from Berserk 1997

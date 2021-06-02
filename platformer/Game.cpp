@@ -14,7 +14,8 @@ void Game::initVariables()
 	this->spawnTimerMax = 2000.f;
 	this->musicSwitchState = 1;
 	this->scoreFilePath = "Txt/highscore.txt";
-	this->audioPath["MAINSONG1"] = "Music/PapSmear.ogg";
+	this->audioPath["MAINSONG1"] = "Music/mainsong2.ogg";
+	this->audioPath["MAINSONG2"] = "Music/PapSmear.ogg";
 	this->audioPath["ENDSONG"] = "Music/endscreen.ogg";
 }
 
@@ -32,7 +33,8 @@ void Game::initGui()
 
 void Game::initMusic()
 {
-	this->songs.push_back(new SongPlayer(this->audioPath["MAINSONG1"], 0, true)); //TODO unmute songs before final release
+	this->songs.push_back(new SongPlayer(this->audioPath["MAINSONG1"], 0, false)); //TODO unmute songs before final release
+	this->songs.push_back(new SongPlayer(this->audioPath["MAINSONG2"], 10, false));
 	this->songs.push_back(new SongPlayer(this->audioPath["ENDSONG"], 0, true));
 	this->playMainMusic();
 }
@@ -306,7 +308,6 @@ void Game::playEndMusic()
 		this->stopMainMusic();
 		this->songs.at(this->songs.size() - 1)->playMusic();
 	}
-	std::cout << musicSwitchState << std::endl;
 }
 
 void Game::stopMainMusic()
