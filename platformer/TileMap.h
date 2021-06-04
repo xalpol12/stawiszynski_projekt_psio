@@ -1,6 +1,8 @@
 #pragma once
 #include "Tile.h"
-#include <vector>
+#include "Pickup.h"
+#include "Player.h"
+#include "Bullet.h"
 
 class TileMap
 {
@@ -25,6 +27,8 @@ public:
 	void loadFromFile(const std::string file_name);
 	void updatePlayerCollision(Player* player);
 	bool updateBulletCollision(Bullet* bullet);
+	void updatePickupCollision(Pickup* pickup);
+
 	void update();
 	void render(sf::RenderTarget& target);
 };

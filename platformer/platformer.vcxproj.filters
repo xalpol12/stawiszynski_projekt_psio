@@ -24,18 +24,15 @@
     <Filter Include="Audio">
       <UniqueIdentifier>{e1ebb230-12c7-4d40-ada6-91ab0cbdb3cd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Player related">
+      <UniqueIdentifier>{89754ce3-25b1-4d9c-9734-2de8b094591c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Bullet.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TileMap.cpp">
@@ -77,17 +74,17 @@
     <ClCompile Include="TextFileManager.cpp">
       <Filter>Game elements</Filter>
     </ClCompile>
+    <ClCompile Include="Pickup.cpp">
+      <Filter>Player related</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>Player related</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Player related</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="stdafx.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Bullet.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Tile.h">
       <Filter>Map</Filter>
     </ClInclude>
@@ -126,6 +123,18 @@
     </ClInclude>
     <ClInclude Include="TextFileManager.h">
       <Filter>Game elements</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Player related</Filter>
+    </ClInclude>
+    <ClInclude Include="Pickup.h">
+      <Filter>Player related</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>Player related</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

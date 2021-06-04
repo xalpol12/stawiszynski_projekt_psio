@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "Bullet.h"
 #include "Enemy_Fire.h"
+#include "Pickup.h"
 #include "Tile.h"
 #include "TileMap.h"
 #include "Gui.h"
@@ -34,6 +35,7 @@ private:
 	std::map<std::string, sf::Texture*> textures;
 	std::vector<Bullet*> bullets;
 	std::vector<Enemy_Fire*> enemies; //TODO Generalize vector to all types of enemies
+	std::vector<Pickup*> pickups;
 	TileMap* map;
 
 	//Gui/gameplay elements
@@ -63,6 +65,7 @@ public:
 
 	//Spawn
 	void spawnEnemies();
+	void spawnPickup(const sf::Vector2f& pos_);
 
 	//Updates
 	void updateDeltaTime();
@@ -73,6 +76,7 @@ public:
 	void updateCombat();
 	void updateEnemies();
 	void updateBullets();
+	void updatePickups();
 	void update();
 
 	//Music

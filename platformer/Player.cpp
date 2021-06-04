@@ -78,8 +78,6 @@ void Player::move(const float dir_x, const float dir_y)
 }
 
 
-
-
 void Player::updatePhysics()
 {
 	//Gravity
@@ -210,6 +208,17 @@ void Player::loseHp(int damage_)
 {
 	if (this->hp > 0)
 		this->hp -= damage_;
+}
+
+void Player::addHp(int value_)
+{
+	if(this->hp+value_ <= this->hpMax)
+	this->hp += value_;
+}
+
+void Player::addHpMax(int value_)
+{
+	this->hpMax += value_;
 }
 
 void Player::resetVelocityX()

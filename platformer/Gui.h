@@ -4,6 +4,7 @@ class Gui
 private:
 	sf::Font font;
 	sf::Text pointText;
+	sf::Text hpText;
 	sf::Text gameOverText;
 
 	sf::RectangleShape gameOverShape;
@@ -12,6 +13,7 @@ private:
 
 	//Variables
 	sf::Vector2f pointTextPos;
+	sf::Vector2f hpTextPos;
 	sf::Vector2f gameOverTextPos;
 	int characterSize;
 	int counter;
@@ -23,6 +25,7 @@ private:
 	void initVariables();
 	void loadFont();
 	void initPointText();
+	void initHpText();
 	void initGameOverText();
 	void initGameOverRectangle();
 	void initPlayerHpBar();
@@ -34,6 +37,7 @@ public:
 
 	//Update
 	void updatePointText(int points_);
+	void updateHpText(int hp_, int hpMax_);
 	void updatePlayerHpBar(int hp_, int hpMax_);
 	void update(int points_, int hp_, int hpMax_);
 

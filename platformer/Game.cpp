@@ -59,6 +59,8 @@ void Game::initTextures()
 	this->textures["ENEMY1"]->loadFromFile("Textures/EnemyFire.png");
 	this->textures["TILES"] = new sf::Texture();
 	this->textures["TILES"]->loadFromFile("Textures/tiles1.png");
+	this->textures["PICKUPS"] = new sf::Texture();
+	this->textures["PICKUPS"]->loadFromFile("Textures/Pickups.png");
 }
 
 Game::Game()
@@ -91,6 +93,12 @@ Game::~Game()
 
 	//Deleting enemies
 	for (auto* i : this->enemies)
+	{
+		delete i;
+	}
+
+	//Deleting pickups
+	for (auto* i : this->pickups)
 	{
 		delete i;
 	}
@@ -128,6 +136,20 @@ void Game::spawnEnemies()
 		this->enemies.push_back(new Enemy_Fire(this->textures["ENEMY1"], this->randomCorner));
 	}
 	
+}
+
+void Game::spawnPickup(const sf::Vector2f& pos_)
+{
+	int random = rand() & 1;
+	switch (random)
+	{
+	case 0: 
+		this->pickups.push_back(new Pickup(this->textures["PICKUPS"], sf::IntRect(0, 0, 9, 8), "HEAL", pos_, 10));
+		break;
+	case 1:
+		this->pickups.push_back(new Pickup(this->textures["PICKUPS"], sf::IntRect(8, 0, 9, 8), "HP_UP", pos_, 5));
+		break;
+	}
 }
 
 const int Game::getPlayerHp() const
@@ -176,7 +198,7 @@ void Game::updatePollEvents()
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
 		{
 
-			this->enemies.push_back(new Enemy_Fire(this->textures["ENEMY1"], sf::Vector2f(sf::Mouse::getPosition(window))));
+			//this->enemies.push_back(new Enemy_Fire(this->textures["ENEMY1"], sf::Vector2f(sf::Mouse::getPosition(window))));
 			/*std::cout << enemies.size() << std::endl;*/
 		}
 	}
@@ -231,7 +253,7 @@ void Game::updateCombat()
 			if (bullets[i]->getBounds().intersects(enemies[k]->getBounds()))
 			{
 				this->points += enemies[k]->getPoints();
-				std::cout << this->points << std::endl;
+				this->spawnPickup(enemies[k]->getPosition());
 				bullets.erase(bullets.begin() + i);
 				enemies.erase(enemies.begin() + k);
 
@@ -295,6 +317,22 @@ void Game::updateBullets()
 	}
 }
 
+void Game::updatePickups()
+{
+	for (unsigned i = 0; i < pickups.size(); i++)
+	{
+		this->pickups[i]->update(this->deltaTime);
+		this->map->updatePickupCollision(pickups[i]);
+		if (this->pickups[i]->getGlobalBounds().intersects(this->player->getGlobalBounds()))
+		{
+			this->pickups[i]->execute(*player);
+			pickups.erase(pickups.begin() + i);
+		}
+	}
+}
+
+#pragma region Playing_music
+
 void Game::playMainMusic()
 {
 	this->songs.at(0)->playMusic();
@@ -315,10 +353,13 @@ void Game::stopMainMusic()
 	this->songs.at(0)->stopMusic();
 }
 
+
 void Game::stopEndMusic()
 {
 	this->songs.at(this->songs.size() - 1)->stopMusic();
 }
+
+#pragma endregion
 
 void Game::update()
 {
@@ -331,6 +372,7 @@ void Game::update()
 	this->updateCombat();
 	this->updateEnemies();
 	this->updateBullets();
+	this->updatePickups();
 }
 
 void Game::renderPlayer()
@@ -365,6 +407,11 @@ void Game::render()
 		enemies[i]->render(this->window);
 	}
 
+	for (size_t i = 0; i < pickups.size(); i++)
+	{
+		pickups[i]->render(this->window);
+	}
+
 	this->gui->render(this->window);
 
 	this->window.display();
@@ -374,6 +421,8 @@ const sf::RenderWindow& Game::getWindow() const
 {
 	return this->window;
 }
+
+
 
 void Game::savePoints()
 {

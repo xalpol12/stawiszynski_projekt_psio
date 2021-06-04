@@ -64,6 +64,8 @@ public:
 	void resetShooting();
 	void resetAnimationTimer();
 	void loseHp(int damage_);
+	void addHp(int value_);
+	void addHpMax(int value_);
 
 	//Functions
 	void move(const float dir_x, const float dir_y);

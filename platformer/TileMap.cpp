@@ -1,7 +1,6 @@
 #include "stdafx.h"
-#include "Player.h"
-#include "Bullet.h"
 #include "TileMap.h"
+
 
 void TileMap::setDimensions(sf::Vector2u windowSize_)
 {
@@ -94,6 +93,7 @@ void TileMap::loadFromFile(const std::string file_name)
 		in_file.close();
 	}
 }
+
 
 void TileMap::updatePlayerCollision(Player* player)
 {
@@ -289,6 +289,45 @@ bool TileMap::updateBulletCollision(Bullet* bullet)
 	else
 		return false;
 }
+
+void TileMap::updatePickupCollision(Pickup* pickup)
+{
+
+	this->fromY = pickup->getGridPosition(gridSizeI).y - 1;
+	if (this->fromY < 0)
+		this->fromY = 0;
+	else if (this->fromY > this->dimension.y)
+		this->fromY = dimension.y;
+
+	this->toY = pickup->getGridPosition(gridSizeI).y + 1;
+	if (this->toY < 0)
+		this->toY = 0;
+	else if (this->toY > this->dimension.y)
+		this->toY = dimension.y;
+
+	sf::FloatRect nextPos;
+	sf::Vector2i currentGrid = pickup->getGridPosition(gridSizeI);
+	sf::FloatRect pickupBounds = pickup->getGlobalBounds();
+	float velocity = pickup->getVelocity();
+
+	nextPos = pickupBounds;
+	nextPos.top += velocity;
+
+	int x = currentGrid.x;
+		for (int y = this->fromY; y < this->toY; y++)
+		{
+			if (map[x][y] != NULL)
+			{
+				sf::FloatRect tileBounds = map[x][y]->getGlobalBounds();
+				if (tileBounds.top < nextPos.top + pickupBounds.height)
+				{
+					pickup->resetVelocityY();
+					pickup->setPosition(sf::Vector2f(pickupBounds.left, tileBounds.top - tileBounds.height+20.f));
+				}
+			}
+		}
+}
+
 
 void TileMap::update()
 {
