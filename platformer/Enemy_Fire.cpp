@@ -10,6 +10,7 @@ void Enemy_Fire::initVariables()
 	this->points = 10;
 	this->speed = 7.f;
 	this->damage = 10;
+	this->hp = this->hpMax = 10;
 }
 
 void Enemy_Fire::initTexture(sf::Texture* texture_)
@@ -27,6 +28,7 @@ Enemy_Fire::Enemy_Fire(sf::Texture* texture_, sf::Vector2f spawnLocation)
 	this->initVariables();
 	this->initTexture(texture_);
 	this->shape.setPosition(spawnLocation);
+	this->initUI();
 	this->update(playerPos);
 }
 

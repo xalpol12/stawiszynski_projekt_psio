@@ -50,13 +50,13 @@ void Gui::initGameOverRectangle()
 	this->gameOverShape.setFillColor(sf::Color::Color(0, 0, 0, 255));
 }
 
-void Gui::initPlayerHpBar()
+void Gui::initHpBar()
 {
-	this->playerHpBar.setSize(sf::Vector2f(this->hpBarSize));
-	this->playerHpBar.setFillColor(sf::Color::Red);
+	this->HpBar.setSize(sf::Vector2f(this->hpBarSize));
+	this->HpBar.setFillColor(sf::Color::Red);
 
-	this->playerHpBarBack = this->playerHpBar;
-	this->playerHpBarBack.setFillColor(sf::Color(25, 25, 25, 200));
+	this->HpBarBack = this->HpBar;
+	this->HpBarBack.setFillColor(sf::Color(25, 25, 25, 200));
 }
 
 void Gui::initElements()
@@ -67,7 +67,7 @@ void Gui::initElements()
 	this->initHpText();
 	this->initGameOverText();
 	this->initGameOverRectangle();
-	this->initPlayerHpBar();
+	this->initHpBar();
 }
 
 Gui::Gui()
@@ -92,10 +92,10 @@ void Gui::updateHpText(int hp_, int hpMax_)
 	this->hpText.setString(std::to_string(hp_) + "/" + std::to_string(hpMax_));
 }
 
-void Gui::updatePlayerHpBar(int hp_, int hpMax_)
+void Gui::updateHpBar(int hp_, int hpMax_)
 {
 	float hpPercent = static_cast<float>(hp_) / hpMax_;
-	this->playerHpBar.setSize(sf::Vector2f(this->hpBarSize.x * hpPercent, this->hpBarSize.y));
+	this->HpBar.setSize(sf::Vector2f(this->hpBarSize.x * hpPercent, this->hpBarSize.y));
 }
 
 
@@ -103,7 +103,7 @@ void Gui::update(int points_, int hp_, int hpMax_ )
 {
 	this->updatePointText(points_);
 	this->updateHpText(hp_, hpMax_);
-	this->updatePlayerHpBar(hp_, hpMax_);
+	this->updateHpBar(hp_, hpMax_);
 }
 
 void Gui::animateGameOverRectangle(int counter_)
@@ -127,8 +127,8 @@ void Gui::updateGameOver()
 void Gui::render(sf::RenderTarget& target)
 {
 	target.draw(this->pointText);
-	target.draw(this->playerHpBarBack);
-	target.draw(this->playerHpBar);
+	target.draw(this->HpBarBack);
+	target.draw(this->HpBar);
 	target.draw(this->hpText);
 }
 

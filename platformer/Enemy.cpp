@@ -1,6 +1,11 @@
 #include "stdafx.h"
 #include "Enemy.h"
 
+void Enemy::initUI()
+{
+	this->enemyUI = new EnemyUI(this->getBounds(),5.f,60.f);
+}
+
 void Enemy::initTexture(sf::Texture* texture)
 {
 }
@@ -11,6 +16,7 @@ Enemy::Enemy()
 
 Enemy::~Enemy()
 {
+	this->enemyUI->damageAnimation(hp, this->getPosition());
 }
 
 const sf::FloatRect Enemy::getBounds() const
@@ -31,6 +37,17 @@ const int Enemy::getPoints()
 const int Enemy::getDamage()
 {
 	return this->damage;
+}
+
+const int Enemy::getHp()
+{
+	return this->hp;
+}
+
+void Enemy::subtractHp(const int& damage_)
+{
+	this->hp -= damage_;
+	this->enemyUI->damageAnimation(damage_, this->getPosition());
 }
 
 void Enemy::restartClock()
@@ -69,10 +86,12 @@ void Enemy::update(sf::Vector2f playerPos_)
 {
 	this->playerPos = playerPos_;
 	this->updateMovement();
+	this->enemyUI->update(this->hp, this->hpMax, this->getPosition());
 	this->updateAnimation();
 }
 
 void Enemy::render(sf::RenderTarget& target)
 {
 	target.draw(this->shape);
+	this->enemyUI->render(target);
 }

@@ -7,6 +7,10 @@ void Pickup::initItemType(std::string name_)
 		this->type = 0;
 	if (name_ == "HP_UP")
 		this->type = 1;
+	if (name_ == "DAMAGE")
+		this->type = 2;
+	if (name_ == "SHOOT_SPEED")
+		this->type = 3;
 }
 
 void Pickup::initVariables(sf::Texture* texture_, sf::IntRect texturePos_, std::string name_, sf::Vector2f pos_, int value_)
@@ -74,6 +78,10 @@ void Pickup::execute(Player& player_)
 		break;
 
 	case 1: player_.addHpMax(this->value);
+		break;
+	case 2: player_.addDamage(this->value);
+		break;
+	case 3: player_.addShootingSpeed(this->value);
 		break;
 	}
 }

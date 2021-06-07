@@ -5,6 +5,10 @@ void Player::initVariables()
 { 
 	this->hpMax = 100;
 	this->hp = this->hpMax;
+	this->damage = 5;
+	this->attackSpeed = 0.f;
+	this->attackSpeedMax = 600.f;
+
 	this->animState = PLAYER_ANIMATION_STATE::IDLE;
 	this->scalingFactor = 3;
 	this->isShooting = false;
@@ -167,6 +171,7 @@ void Player::setPosition(const float x, const float y)
 	this->sprite.setPosition(x, y);
 }
 
+
 const sf::Vector2i Player::getGridPosition(int gridSizeI_) const
 {
 	return sf::Vector2i(static_cast<int>(this->sprite.getPosition().x)/gridSizeI_,
@@ -193,6 +198,10 @@ const int Player::getHpMax()
 	return this->hpMax;
 }
 
+const int Player::getDamage()
+{
+	return this->damage;
+}
 
 void Player::resetJumping()
 {
@@ -221,6 +230,18 @@ void Player::addHpMax(int value_)
 	this->hpMax += value_;
 }
 
+void Player::addDamage(int value_)
+{
+	this->damage += value_;
+}
+
+void Player::addShootingSpeed(int value_)
+{
+	if(this->attackSpeed<this->attackSpeedMax)
+	this->attackSpeed += value_;
+}
+
+
 void Player::resetVelocityX()
 {
 	this->velocity.x = 0.f;
@@ -229,6 +250,11 @@ void Player::resetVelocityX()
 void Player::resetVelocityY()
 {
 	this->velocity.y = 0.f;
+}
+
+const float Player::getAttackSpeed()
+{
+	return this->attackSpeed;
 }
 
 
@@ -353,6 +379,8 @@ void Player::update()
 	this->updateAnimations();
 	this->updatePhysics();
 }
+
+
 
 
 void Player::render(sf::RenderTarget& target)

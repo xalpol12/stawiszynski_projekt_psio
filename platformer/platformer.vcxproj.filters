@@ -83,6 +83,9 @@
     <ClCompile Include="Player.cpp">
       <Filter>Player related</Filter>
     </ClCompile>
+    <ClCompile Include="EnemyUI.cpp">
+      <Filter>Enemies</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Tile.h">
@@ -135,6 +138,9 @@
     </ClInclude>
     <ClInclude Include="stdafx.h">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyUI.h">
+      <Filter>Enemies</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

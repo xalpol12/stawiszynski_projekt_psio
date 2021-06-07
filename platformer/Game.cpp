@@ -140,7 +140,7 @@ void Game::spawnEnemies()
 
 void Game::spawnPickup(const sf::Vector2f& pos_)
 {
-	int random = rand() & 1;
+	int random = rand() & 3;
 	switch (random)
 	{
 	case 0: 
@@ -148,6 +148,12 @@ void Game::spawnPickup(const sf::Vector2f& pos_)
 		break;
 	case 1:
 		this->pickups.push_back(new Pickup(this->textures["PICKUPS"], sf::IntRect(8, 0, 9, 8), "HP_UP", pos_, 5));
+		break;
+	case 2:
+		this->pickups.push_back(new Pickup(this->textures["PICKUPS"], sf::IntRect(16, 0, 9, 8), "DAMAGE", pos_, 1));
+		break;
+	case 3:
+		this->pickups.push_back(new Pickup(this->textures["PICKUPS"], sf::IntRect(24, 0, 9, 8), "SHOOT_SPEED", pos_, 100));
 		break;
 	}
 }
@@ -185,10 +191,10 @@ void Game::updatePollEvents()
 
 		int counter = 0;
 		accTimer += this->deltaTime;
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && accTimer > 500.f)
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)&&accTimer>700.f-this->player->getAttackSpeed())
 		{
-			accTimer = 0.f;
-			this->bullets.push_back(new Bullet(this->textures["PLAYER_BULLET1"], this->player->calcPosition(this->window), this->player->getGlobalBounds()));
+				accTimer = 0.f;
+				this->bullets.push_back(new Bullet(this->textures["PLAYER_BULLET1"], this->player->calcPosition(this->window), this->player->getGlobalBounds()));
 		}
 
 		if (event.type == sf::Event::MouseButtonReleased && event.key.code == sf::Mouse::Left)
@@ -253,9 +259,16 @@ void Game::updateCombat()
 			if (bullets[i]->getBounds().intersects(enemies[k]->getBounds()))
 			{
 				this->points += enemies[k]->getPoints();
-				this->spawnPickup(enemies[k]->getPosition());
 				bullets.erase(bullets.begin() + i);
-				enemies.erase(enemies.begin() + k);
+				if (this->enemies[k]->getHp() - this->player->getDamage() <= 0)
+				{
+					this->spawnPickup(enemies[k]->getPosition());
+					enemies.erase(enemies.begin() + k);
+				}
+				else
+				{
+					this->enemies[k]->subtractHp(this->player->getDamage());
+				}
 
 				break;
 			}

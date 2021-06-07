@@ -30,6 +30,8 @@ private:
 	//Gameplay variables
 	int hp;
 	int hpMax;
+	int damage;
+	float attackSpeed, attackSpeedMax;
 
 	//Bools
 	bool isJumping;
@@ -55,6 +57,8 @@ public:
 	const sf::Vector2i getGridPosition(int gridSizeI_) const;
 	const int getHp();
 	const int getHpMax();
+	const int getDamage();
+	const float getAttackSpeed();
 
 	//Modifiers
 	void setPosition(const float x, const float y);
@@ -66,6 +70,8 @@ public:
 	void loseHp(int damage_);
 	void addHp(int value_);
 	void addHpMax(int value_);
+	void addDamage(int value_);
+	void addShootingSpeed(int value_);
 
 	//Functions
 	void move(const float dir_x, const float dir_y);

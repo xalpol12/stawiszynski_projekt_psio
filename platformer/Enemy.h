@@ -1,4 +1,5 @@
 #pragma once
+#include "EnemyUI.h"
 namespace ENEMY_STATE
 {
 	enum ENEMY_ANIMATION_STATE { IDLE = 0, MOVING_LEFT = 1, MOVING_RIGHT = 2 };
@@ -19,12 +20,17 @@ protected:
 	float scalingFactor;
 	short animState;
 
+	EnemyUI* enemyUI;
+
 	//Game variables
+	int hp;
+	int hpMax;
 	int points;
 	float speed;
 	int damage;
 
 	//Initialization
+	void initUI();
 	virtual void initTexture(sf::Texture* texture);
 
 public:
@@ -36,8 +42,10 @@ public:
 	const sf::Vector2f getPosition() const;
 	const int getPoints();
 	const int getDamage();
+	const int getHp();
 
 	//Functions
+	void subtractHp(const int& damage_);
 	void restartClock();
 	void normalizeVector();
 	void resetVelocity();

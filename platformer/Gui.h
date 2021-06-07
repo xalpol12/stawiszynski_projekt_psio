@@ -2,34 +2,41 @@
 class Gui
 {
 private:
-	sf::Font font;
 	sf::Text pointText;
-	sf::Text hpText;
 	sf::Text gameOverText;
 
 	sf::RectangleShape gameOverShape;
-	sf::RectangleShape playerHpBar;
-	sf::RectangleShape playerHpBarBack;
 
 	//Variables
 	sf::Vector2f pointTextPos;
-	sf::Vector2f hpTextPos;
 	sf::Vector2f gameOverTextPos;
-	int characterSize;
 	int counter;
 	int maxCounter;
 
+	//Init functions
+	void initPointText();
+	void initGameOverText();
+	void initGameOverRectangle();
+
+protected:
+	sf::Font font;
+	sf::Text hpText;
+
+	sf::RectangleShape HpBar;
+	sf::RectangleShape HpBarBack;
+
+	//Variables
+	int characterSize;
+	sf::Vector2f hpTextPos;
 	sf::Vector2f hpBarSize;
 
 	//Init functions
-	void initVariables();
+	virtual void initVariables();
 	void loadFont();
-	void initPointText();
 	void initHpText();
-	void initGameOverText();
-	void initGameOverRectangle();
-	void initPlayerHpBar();
-	void initElements();
+	void initHpBar();
+	virtual void initElements();
+
 
 public:
 	Gui();
@@ -37,16 +44,16 @@ public:
 
 	//Update
 	void updatePointText(int points_);
-	void updateHpText(int hp_, int hpMax_);
-	void updatePlayerHpBar(int hp_, int hpMax_);
-	void update(int points_, int hp_, int hpMax_);
+	virtual void updateHpText(int hp_, int hpMax_);
+	virtual void updateHpBar(int hp_, int hpMax_);
+	virtual void update(int points_, int hp_, int hpMax_);
 
 	void animateGameOverRectangle(int counter_);
 	void animateGameOverText(int counter_);
 	void updateGameOver();
 
 	//Render
-	void render(sf::RenderTarget& target);
+	virtual void render(sf::RenderTarget& target);
 	void renderGameOver(sf::RenderTarget& target);
 };
 
