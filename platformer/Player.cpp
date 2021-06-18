@@ -7,7 +7,7 @@ void Player::initVariables()
 	this->hp = this->hpMax;
 	this->damage = 5;
 	this->attackSpeed = 0.f;
-	this->attackSpeedMax = 600.f;
+	this->attackSpeedMax = 500.f;
 
 	this->animState = PLAYER_ANIMATION_STATE::IDLE;
 	this->scalingFactor = 3;

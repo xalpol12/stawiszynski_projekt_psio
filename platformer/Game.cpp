@@ -17,6 +17,9 @@ void Game::initVariables()
 	this->audioPath["MAINSONG1"] = "Music/mainsong2.ogg";
 	this->audioPath["MAINSONG2"] = "Music/PapSmear.ogg";
 	this->audioPath["ENDSONG"] = "Music/endscreen.ogg";
+
+	this->audioPath["PLAYERDEATH"] = "Sounds/death_sound.ogg";
+	this->audioPath["PLAYERHIT"] = "Sounds/hit_sound.ogg";
 }
 
 void Game::initBackground()
@@ -33,10 +36,16 @@ void Game::initGui()
 
 void Game::initMusic()
 {
-	this->songs.push_back(new SongPlayer(this->audioPath["MAINSONG1"], 0, false)); //TODO unmute songs before final release
+	this->songs.push_back(new SongPlayer(this->audioPath["MAINSONG1"], this->musicVol, false)); //TODO unmute songs before final release
 	this->songs.push_back(new SongPlayer(this->audioPath["MAINSONG2"], 10, false));
-	this->songs.push_back(new SongPlayer(this->audioPath["ENDSONG"], 0, true));
+	this->songs.push_back(new SongPlayer(this->audioPath["ENDSONG"], this->musicVol, true));
 	this->playMainMusic();
+}
+
+void Game::initSounds()
+{
+	this->sounds.push_back(new SoundPlayer(this->audioPath["PLAYERDEATH"], this->soundVol));
+	this->sounds.push_back(new SoundPlayer(this->audioPath["PLAYERHIT"], this->soundVol));
 }
 
 void Game::initPlayer()
@@ -63,14 +72,17 @@ void Game::initTextures()
 	this->textures["PICKUPS"]->loadFromFile("Textures/Pickups.png");
 }
 
-Game::Game()
+Game::Game(int musicVol_, int soundVol_)
 {
+	this->musicVol = musicVol_;
+	this->soundVol = soundVol_;
 	this->initVariables();
 	this->initWindow();
 	this->initBackground();
 	this->initTextures();
 	this->initGui();
 	this->initMusic();
+	this->initSounds();
 	this->initPlayer();
 	this->initTileMap();
 }
@@ -144,16 +156,16 @@ void Game::spawnPickup(const sf::Vector2f& pos_)
 	switch (random)
 	{
 	case 0: 
-		this->pickups.push_back(new Pickup(this->textures["PICKUPS"], sf::IntRect(0, 0, 9, 8), "HEAL", pos_, 10));
+		//this->pickups.push_back(new Pickup(this->textures["PICKUPS"], sf::IntRect(0, 0, 9, 8), "HEAL", pos_, 10));
 		break;
 	case 1:
-		this->pickups.push_back(new Pickup(this->textures["PICKUPS"], sf::IntRect(8, 0, 9, 8), "HP_UP", pos_, 5));
+		//this->pickups.push_back(new Pickup(this->textures["PICKUPS"], sf::IntRect(8, 0, 9, 8), "HP_UP", pos_, 5));
 		break;
 	case 2:
-		this->pickups.push_back(new Pickup(this->textures["PICKUPS"], sf::IntRect(16, 0, 9, 8), "DAMAGE", pos_, 1));
+		//this->pickups.push_back(new Pickup(this->textures["PICKUPS"], sf::IntRect(17, 0, 9, 8), "DAMAGE", pos_, 1));
 		break;
 	case 3:
-		this->pickups.push_back(new Pickup(this->textures["PICKUPS"], sf::IntRect(24, 0, 9, 8), "SHOOT_SPEED", pos_, 100));
+		this->pickups.push_back(new Pickup(this->textures["PICKUPS"], sf::IntRect(26, 0, 9, 8), "SHOOT_SPEED", pos_, 50));
 		break;
 	}
 }
@@ -219,6 +231,7 @@ void Game::updateGui()
 {
 	this->gui->update(points, this->player->getHp(), this->player->getHpMax());
 }
+
 
 void Game::updateCollision()
 {
@@ -290,7 +303,12 @@ void Game::updateEnemies()
 		//Enemy - player collision
 		else if (enemies[i]->getBounds().intersects(this->player->getGlobalBounds()))
 		{
+			if(this->player->getHp() - this->enemies[i]->getDamage()<= 0)
+				this->sounds.at(0)->playSound();
+			else 
+				this->sounds.at(1)->playSound();
 			this->player->loseHp(this->enemies[i]->getDamage());
+
 			this->enemies.erase(enemies.begin() + i);
 		}
 

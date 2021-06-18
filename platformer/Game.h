@@ -7,6 +7,7 @@
 #include "TileMap.h"
 #include "Gui.h"
 #include "SongPlayer.h"
+#include "SoundPlayer.h"
 #include "TextFileManager.h"
 
 class Game
@@ -29,8 +30,7 @@ private:
 	sf::Clock shootingTimer;
 
 	//Resources
-	std::string mapFilePath;
-	std::string scoreFilePath;
+	std::string mapFilePath, scoreFilePath;
 	sf::Sprite backgroundTexture;
 	std::map<std::string, sf::Texture*> textures;
 	std::vector<Bullet*> bullets;
@@ -42,8 +42,10 @@ private:
 	int points;
 
 	//Audio elements
+	int musicVol, soundVol;
 	std::map<std::string, std::string> audioPath;
 	std::vector<SongPlayer*> songs;
+	std::vector<SoundPlayer*> sounds;
 	int musicSwitchState;
 
 	void initVariables();
@@ -52,11 +54,12 @@ private:
 	void initGui();
 	void initTextures();
 	void initMusic();
+	void initSounds();
 	void initPlayer();
 	void initTileMap();
 public:
 
-	Game();
+	Game(int musicVol_, int soundVol_);
 	~Game();
 
 	//Accessors

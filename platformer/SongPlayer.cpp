@@ -4,7 +4,7 @@
 void SongPlayer::initVariables(std::string filePath_, int volume_, bool loop_)
 {
 	if (!this->music.openFromFile(filePath_))
-		std::cout << "Couldnt load file " << filePath_ << std::endl;
+		std::cout << "Couldn't load file " << filePath_ << std::endl;
 	this->music.setVolume(volume_);
 	this->music.setLoop(loop_);
 }

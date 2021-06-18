@@ -15,7 +15,7 @@ int main()
 	}
 	if (!menu.getWindow().isOpen()&&menu.wasEscapePressed()==false)
 	{
-		Game game;
+		Game game(10,3); //TODO: Options menu with volume selection
 		while (game.getWindow().isOpen())
 		{
 			if (game.getPlayerHp() > 0)
