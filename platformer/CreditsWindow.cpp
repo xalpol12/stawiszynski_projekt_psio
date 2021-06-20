@@ -1,19 +1,20 @@
 #include "stdafx.h"
 #include "CreditsWindow.h"
 
-void CreditsWindow::loadFromTxt()
+std::map<std::string, std::string> CreditsWindow::loadFromTxt(std::string file_name_)
 {
+	std::map<std::string, std::string> map;
 	int numberOfLines = 0;
 	std::string line;
 	std::ifstream in_file;
 	std::string lineBefore;
 
-	in_file.open(file_name);		//counting number of lines
+	in_file.open(file_name_);		//counting number of lines
 	while (std::getline(in_file, line))
 		numberOfLines++;
 	in_file.close();
 
-	in_file.open(file_name);
+	in_file.open(file_name_);
 	if (in_file.is_open())
 	{
 		for (int i = 0; i < numberOfLines; i++)
@@ -21,16 +22,17 @@ void CreditsWindow::loadFromTxt()
 			std::getline(in_file, line);
 			if (i % 2 == 0)
 			{
-				this->text[line];
+				map[line];
 			}
 			else
 			{
-				this->text[lineBefore] = line;
+				map[lineBefore] = line;
 			}
 			lineBefore = line;
 		}
 		in_file.close();
 	}
+	return map;
 }
 
 void CreditsWindow::initPanels()
@@ -53,7 +55,7 @@ void CreditsWindow::initVariables()
 	this->marginX = 0;
 	this->marginY = 50;
 	this->loadFont();
-	this->loadFromTxt();
+	this->text = loadFromTxt(file_name);
 	this->initPanels();
 }
 

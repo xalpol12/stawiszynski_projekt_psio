@@ -4,8 +4,6 @@ SONG
 Main Menu Music: Dawid Stawiszynski
 SONG2
 Game Music 1: Dawid Stawiszynski
-SONG3
-Game Music 2: Crystal Castles - "Pap Smear"
 SONG4
 End Music: Susumu Hirasawa - "Gats Theme" from Berserk 1997
 TITLE2

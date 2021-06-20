@@ -20,6 +20,11 @@ void Game::initVariables()
 
 	this->audioPath["PLAYERDEATH"] = "Sounds/death_sound.ogg";
 	this->audioPath["PLAYERHIT"] = "Sounds/hit_sound.ogg";
+	this->audioPath["PLAYERSHOOT"] = "Sounds/blaster_sound.ogg";
+	this->audioPath["PICKUPSPAWN"] = "Sounds/pickup_spawn.ogg";
+	this->audioPath["PICKUP"] = "Sounds/pickup_sound.ogg";
+	this->audioPath["FIREDEATH"] = "Sounds/fire_death.ogg";
+	this->audioPath["FIREHIT"] = "Sounds/fire_hit_sound.ogg";
 }
 
 void Game::initBackground()
@@ -37,7 +42,6 @@ void Game::initGui()
 void Game::initMusic()
 {
 	this->songs.push_back(new SongPlayer(this->audioPath["MAINSONG1"], this->musicVol, false)); //TODO unmute songs before final release
-	this->songs.push_back(new SongPlayer(this->audioPath["MAINSONG2"], 10, false));
 	this->songs.push_back(new SongPlayer(this->audioPath["ENDSONG"], this->musicVol, true));
 	this->playMainMusic();
 }
@@ -46,6 +50,11 @@ void Game::initSounds()
 {
 	this->sounds.push_back(new SoundPlayer(this->audioPath["PLAYERDEATH"], this->soundVol));
 	this->sounds.push_back(new SoundPlayer(this->audioPath["PLAYERHIT"], this->soundVol));
+	this->sounds.push_back(new SoundPlayer(this->audioPath["PLAYERSHOOT"], this->soundVol));
+	this->sounds.push_back(new SoundPlayer(this->audioPath["PICKUPSPAWN"], this->soundVol));
+	this->sounds.push_back(new SoundPlayer(this->audioPath["PICKUP"], this->soundVol));
+	this->sounds.push_back(new SoundPlayer(this->audioPath["FIREDEATH"], this->soundVol));
+	this->sounds.push_back(new SoundPlayer(this->audioPath["FIREHIT"], this->soundVol));
 }
 
 void Game::initPlayer()
@@ -61,7 +70,6 @@ void Game::initTileMap()
 
 void Game::initTextures()
 {
-	this->mapFilePath = "Textures/map.txt";
 	this->textures["PLAYER_BULLET1"] = new sf::Texture();					//Bullets
 	this->textures["PLAYER_BULLET1"]->loadFromFile("Textures/bullet1.png");
 	this->textures["ENEMY1"] = new sf::Texture();							//Enemy fire
@@ -72,8 +80,9 @@ void Game::initTextures()
 	this->textures["PICKUPS"]->loadFromFile("Textures/Pickups.png");
 }
 
-Game::Game(int musicVol_, int soundVol_)
+Game::Game(int musicVol_, int soundVol_, std::string selectedMap_)
 {
+	this->mapFilePath = "Textures/"+selectedMap_+".txt";
 	this->musicVol = musicVol_;
 	this->soundVol = soundVol_;
 	this->initVariables();
@@ -157,15 +166,19 @@ void Game::spawnPickup(const sf::Vector2f& pos_)
 	{
 	case 0: 
 		//this->pickups.push_back(new Pickup(this->textures["PICKUPS"], sf::IntRect(0, 0, 9, 8), "HEAL", pos_, 10));
+		//this->sounds.at(3)->playSound();
 		break;
 	case 1:
 		//this->pickups.push_back(new Pickup(this->textures["PICKUPS"], sf::IntRect(8, 0, 9, 8), "HP_UP", pos_, 5));
+		//this->sounds.at(3)->playSound();
 		break;
 	case 2:
 		//this->pickups.push_back(new Pickup(this->textures["PICKUPS"], sf::IntRect(17, 0, 9, 8), "DAMAGE", pos_, 1));
+		//this->sounds.at(3)->playSound();
 		break;
 	case 3:
 		this->pickups.push_back(new Pickup(this->textures["PICKUPS"], sf::IntRect(26, 0, 9, 8), "SHOOT_SPEED", pos_, 50));
+		this->sounds.at(3)->playSound();
 		break;
 	}
 }
@@ -207,6 +220,7 @@ void Game::updatePollEvents()
 		{
 				accTimer = 0.f;
 				this->bullets.push_back(new Bullet(this->textures["PLAYER_BULLET1"], this->player->calcPosition(this->window), this->player->getGlobalBounds()));
+				this->sounds.at(2)->playSound();
 		}
 
 		if (event.type == sf::Event::MouseButtonReleased && event.key.code == sf::Mouse::Left)
@@ -239,7 +253,6 @@ void Game::updateCollision()
 	{
 		this->player->resetVelocityY();
 		this->player->setPosition(this->player->getPosition().x, this->window.getSize().y - this->player->getGlobalBounds().height); 
-		this->player->resetJumping();
 	}
 	if (this->player->getPosition().y < 0.f)	//Collision top of screen
 	{
@@ -251,7 +264,6 @@ void Game::updateCollision()
 	{
 		this->player->resetVelocityY();
 		this->player->setPosition(this->window.getSize().x - this->player->getGlobalBounds().width, this->player->getPosition().y); 
-		this->player->resetJumping();
 	}
 	if (this->player->getPosition().x < 0.f)	//Collision left wall
 	{
@@ -271,15 +283,17 @@ void Game::updateCombat()
 		{
 			if (bullets[i]->getBounds().intersects(enemies[k]->getBounds()))
 			{
-				this->points += enemies[k]->getPoints();
 				bullets.erase(bullets.begin() + i);
 				if (this->enemies[k]->getHp() - this->player->getDamage() <= 0)
 				{
 					this->spawnPickup(enemies[k]->getPosition());
+					this->points += enemies[k]->getPoints();
 					enemies.erase(enemies.begin() + k);
+					this->sounds.at(5)->playSound();
 				}
 				else
 				{
+					this->sounds.at(6)->playSound();
 					this->enemies[k]->subtractHp(this->player->getDamage());
 				}
 
@@ -357,6 +371,7 @@ void Game::updatePickups()
 		if (this->pickups[i]->getGlobalBounds().intersects(this->player->getGlobalBounds()))
 		{
 			this->pickups[i]->execute(*player);
+			this->sounds.at(4)->playSound();
 			pickups.erase(pickups.begin() + i);
 		}
 	}

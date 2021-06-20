@@ -3,7 +3,9 @@
 #include "SubMenu.h"
 #include "CreditsWindow.h"
 #include "HighScoreWindow.h"
+#include "SettingsWindow.h"
 #include "SongPlayer.h"
+
 
 class MainMenu : public SubMenu
 {
@@ -24,6 +26,8 @@ private:
 	void initVariables();
 
 public:
+	std::string selectedMap;
+
 	MainMenu();
 	~MainMenu();
 
@@ -33,7 +37,7 @@ public:
 
 	//Submenus
 	void openHighScoreWindow();
-	void openOptionsWindow();
+	void openSettingsWindow();
 	void openCreditsWindow();
 
 

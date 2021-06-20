@@ -13,10 +13,10 @@ protected:
 
 
 	float panelHeight, panelWidth;
-	int marginX, marginY;
+	float marginX, marginY;
 	int panelCount;
 
-	void loadFromTxt();
+	std::map<std::string,std::string> loadFromTxt(std::string file_name_);
 	void initPanels();
 	void initVariables();
 public:

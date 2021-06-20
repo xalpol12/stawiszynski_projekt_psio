@@ -1,0 +1,19 @@
+SOUNDS:
+	Hit Sound - https://youtu.be/3w-2gUSus34 (Roblox Death Sound - Sound Effect)
+	Death Sound - https://youtu.be/6yisws5rKoo (Lego yoda death sound)
+	Blaster Sound - https://youtu.be/LQOKUDJ22xc (Star Wars Blaster sound effect)
+	Pickup Spawn - https://www.youtube.com/watch?v=_lhBgeQxKhc (Pick up Coins 8 bit sound pack FREE)
+	Pickup Sound - https://youtu.be/u53yNFMMTL8 (Game Item Pickup Sound Effect)
+	Fire Death - https://youtu.be/Q0n1RU15nTY (Fire - Fire Extinguish - SFX Producer ( No Copyright Sound Effects ))
+	Fire Hit - https://youtu.be/KNqPBT-KlmI (Fuel explosion - Sound Effect)
+
+Music:
+	Main Menu Music: Dawid Stawiszyński (no link, made for the game)
+	Game Music: Dawid Stawiszyński (no link, made for the game)
+	End Music: Susumu Hirasawa - "Gats Theme" from Berserk 1997 (https://www.youtube.com/watch?v=vZa0Yh6e7dw)
+
+Textures:
+	All Textures from Mega Man, ripped by Mister Mike - https://www.spriters-resource.com/nes/mm2/
+	Background Image made by Pukahuna - https://www.deviantart.com/pukahuna/art/Surface-Hell-Background-508391825
+
+	

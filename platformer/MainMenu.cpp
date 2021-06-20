@@ -27,6 +27,7 @@ void MainMenu::createBoxes()
 
 void MainMenu::initVariables()
 {
+	this->selectedMap = "map1";
 	this->clickedEscape = false;
 	this->marginX = 100;
 	this->marginY = 50;
@@ -94,6 +95,7 @@ void MainMenu::openSelected(std::string selected_)
 	}
 	else if (selected_ == "SETTINGS")
 	{
+		this->openSettingsWindow();
 	}
 	else
 	{
@@ -111,8 +113,15 @@ void MainMenu::openHighScoreWindow()
 	}
 }
 
-void MainMenu::openOptionsWindow()
+void MainMenu::openSettingsWindow()
 {
+	SettingsWindow settings;
+	while (settings.getWindow().isOpen())
+	{
+		settings.update();
+		settings.render();
+	}
+	this->selectedMap = settings.getSelectedMap();
 }
 
 void MainMenu::openCreditsWindow()

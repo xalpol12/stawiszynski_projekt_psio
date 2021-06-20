@@ -59,7 +59,7 @@ private:
 	void initTileMap();
 public:
 
-	Game(int musicVol_, int soundVol_);
+	Game(int musicVol_, int soundVol_, std::string selectedMap_);
 	~Game();
 
 	//Accessors
