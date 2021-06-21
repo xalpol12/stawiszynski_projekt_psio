@@ -161,25 +161,26 @@ void Game::spawnEnemies()
 
 void Game::spawnPickup(const sf::Vector2f& pos_)
 {
-	int random = rand() & 3;
-	switch (random)
+	int random = rand() % 9;
+	if (random == 0 || random == 1)
 	{
-	case 0: 
-		//this->pickups.push_back(new Pickup(this->textures["PICKUPS"], sf::IntRect(0, 0, 9, 8), "HEAL", pos_, 10));
-		//this->sounds.at(3)->playSound();
-		break;
-	case 1:
-		//this->pickups.push_back(new Pickup(this->textures["PICKUPS"], sf::IntRect(8, 0, 9, 8), "HP_UP", pos_, 5));
-		//this->sounds.at(3)->playSound();
-		break;
-	case 2:
-		//this->pickups.push_back(new Pickup(this->textures["PICKUPS"], sf::IntRect(17, 0, 9, 8), "DAMAGE", pos_, 1));
-		//this->sounds.at(3)->playSound();
-		break;
-	case 3:
+		this->pickups.push_back(new Pickup(this->textures["PICKUPS"], sf::IntRect(0, 0, 9, 8), "HEAL", pos_, 10));
+		this->sounds.at(3)->playSound();
+	}
+	else if (random == 2 || random == 3)
+	{
+		this->pickups.push_back(new Pickup(this->textures["PICKUPS"], sf::IntRect(8, 0, 9, 8), "HP_UP", pos_, 5));
+		this->sounds.at(3)->playSound();
+	}
+	else if (random == 4 || random == 5)
+	{
+		this->pickups.push_back(new Pickup(this->textures["PICKUPS"], sf::IntRect(17, 0, 9, 8), "DAMAGE", pos_, 1));
+		this->sounds.at(3)->playSound();
+	}
+	else if (random == 6)
+	{
 		this->pickups.push_back(new Pickup(this->textures["PICKUPS"], sf::IntRect(26, 0, 9, 8), "SHOOT_SPEED", pos_, 50));
 		this->sounds.at(3)->playSound();
-		break;
 	}
 }
 

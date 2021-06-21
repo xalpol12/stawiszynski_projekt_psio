@@ -15,7 +15,7 @@ int main()
 	}
 	if (!menu.getWindow().isOpen()&&menu.wasEscapePressed()==false)
 	{
-		Game game(0, 2 ,menu.selectedMap); //first int is music volume and the second is audio effects volume (recommended - music: 5, audio: 3)
+		Game game(10, 2 ,menu.selectedMap); //first int is music volume and the second is audio effects volume (recommended - music: 5, audio: 3)
 		while (game.getWindow().isOpen())
 		{
 			if (game.getPlayerHp() > 0)
